@@ -1,0 +1,31 @@
+agreement
+- hide and seek game
+- story telling involved
+
+game structure
+- menu
+- stage
+    - story scene?
+- stage2
+- ...
+- game clear
+
+backlog
+
+to do
+[ ] create main menu scene
+[ ] create game clear scene
+[ ] create 1 stage
+    [ ] enemy controller
+    [ ] goal controller
+    [ ] design a rough stage
+
+doing
+[ ] create 1 stage
+
+done
+[ ] create 1 stage
+    [v] scene creation
+    [v] load resources
+    [v] obstacles controller
+    [v] player controller
