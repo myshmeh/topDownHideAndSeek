@@ -15,13 +15,12 @@ backlog
 to do
 [ ] create main menu scene
 [ ] create game clear scene
-[ ] create 1 stage
-    [ ] enemy controller
-    [ ] goal controller
-    [ ] design a rough stage
 
 doing
 [ ] create 1 stage
+    [v] enemy controller
+    [ ] goal controller
+    [ ] design a rough stage
 
 done
 [ ] create 1 stage

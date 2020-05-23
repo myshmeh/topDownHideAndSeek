@@ -2,6 +2,8 @@ class PrototypeStage extends Phaser.Scene {
     obstacles;
     player;
     cursors;
+    isArrested;
+
     constructor() {
         super({
             key: 'prototypeStage'
@@ -17,9 +19,11 @@ class PrototypeStage extends Phaser.Scene {
     }
 
     create() {
+        // platforms
         this.add.image(0, 0, 'floor').setOrigin(0);
         this.obstacles = this.physics.add.staticGroup();
         this.obstacles.create(320, 240, 'obstacle').setScale(2).refreshBody();
+        // player
         this.player = this.physics.add.sprite(100, 100, 'player', 0);
         this.physics.add.collider(this.player, this.obstacles);
         this.anims.create({
@@ -51,9 +55,51 @@ class PrototypeStage extends Phaser.Scene {
             frames: [{key: 'player', frame: 0}],
         });
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        // enemy
+        this.enemy = this.physics.add.sprite(200, 200, 'enemy', 0);
+        this.physics.add.collider(this.enemy, this.obstacles);
+        // this.anims.create({
+        //     key: 'moveEnemyDown',
+        //     frames: this.anims.generateFrameNumbers('enemy', {start: 0, end: 3}),
+        //     frameRate: 10,
+        //     repeat: -1
+        // });
+        this.anims.create({
+            key: 'moveEnemyRight',
+            frames: this.anims.generateFrameNumbers('enemy', {start: 4, end: 7}),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'moveEnemyLeft',
+            frames: this.anims.generateFrameNumbers('enemy', {start: 8, end: 11}),
+            frameRate: 10,
+            repeat: -1
+        });
+        // this.anims.create({
+        //     key: 'moveEnemyUp',
+        //     frames: this.anims.generateFrameNumbers('enemy', {start: 12, end: 15}),
+        //     frameRate: 10,
+        //     repeat: -1
+        // });
+        this.anims.create({
+            key: 'enemyIdle',
+            frames: [{key: 'enemy', frame: 0}],
+        });
+        const arrestPlayer = (enemy, player) => {
+            player.play('idle');
+            player.disableBody(true);
+            enemy.play('enemyIdle');
+            enemy.disableBody(true);
+            player.setTint(0xff0000);
+            console.log('Player was Arrested!');
+        };
+        this.physics.add.overlap(this.enemy, this.player, arrestPlayer);
     }
 
     update() {
+        // player operation
         let velX = 0;
         let velY = 0;
         const acc = 100;
@@ -89,5 +135,27 @@ class PrototypeStage extends Phaser.Scene {
             this.player.play('moveUp', true);
         }
         this.player.setVelocity(velX, velY);
+
+        // enemy moving
+        // get enemy corrdinate
+        const enemyX = this.enemy.x;
+        const enemyY = this.enemy.y;
+        // get player corrdinate
+        const playerX = this.player.x;
+        const playerY = this.player.y;
+        // vector from enemy to player
+        const xVector = playerX - enemyX;
+        const yVector = playerY - enemyY;
+        const vector = Math.sqrt((xVector * xVector) + (yVector * yVector));
+        // normarize vectors
+        const xVectorNorm = xVector / vector;
+        const yVectorNorm = yVector / vector;
+        if (xVectorNorm < 0 && this.enemy.body.enable) {
+            this.enemy.play('moveEnemyRight', true);
+        } else if (this.enemy.body.enable) {
+            this.enemy.play('moveEnemyLeft', true);
+        }
+        this.enemy.setVelocity(xVectorNorm * 50, yVectorNorm * 50); // coefficient determines speed
+
     }
 }
