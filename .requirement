@@ -18,8 +18,11 @@ to do
 
 doing
 [ ] create 1 stage
-    [v] enemy controller
-    [ ] goal controller
+    [] enemy controller
+        [ ] enemy sight
+            - draw sight as sprite
+            - draw directly with Arc Class
+        [v] chase player
     [ ] design a rough stage
 
 done
@@ -28,3 +31,5 @@ done
     [v] load resources
     [v] obstacles controller
     [v] player controller
+    [v] goal controller
+[v] extract objects as files
