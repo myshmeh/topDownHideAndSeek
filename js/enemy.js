@@ -3,6 +3,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     patrolStyle;
     patrolSpeed;
     scene;
+    sightTriangle;
 
     constructor(scene, x, y, texture, frame, patrolStyle) {
         super(scene, x, y, texture, frame);
@@ -10,9 +11,29 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.initAnims(scene);
+
         this.moveState = 'patrol';
         this.patrolStyle = patrolStyle;
         this.patrolSpeed = 25;
+
+        this.sightTriangle = this.createTriangle(x, y, 80, 40);
+        this.scene.graphics.lineStyle(2, 0xff0000);
+        this.scene.graphics.strokeTriangleShape(this.sightTriangle);
+    }
+
+    createTriangle(vertexX, vertexY, sightDistance, sightRange) {
+        const point1X = vertexX + sightDistance; 
+        const point1Y = vertexY + sightRange;
+        const point2X = vertexX + sightDistance;
+        const point2Y = vertexY - sightRange;
+        return new Phaser.Geom.Triangle(vertexX, vertexY, point1X, point1Y, point2X, point2Y);
+    }
+
+    createCollisionMove() {
+        this.scene.physics.add.collider(this, this.scene.obstacles, () => {
+            this.patrolSpeed *= -1;
+            Phaser.Geom.Triangle.RotateAroundXY(this.sightTriangle, this.x, this.y, Math.PI);
+        });
     }
 
     initAnims(scene) {
@@ -34,20 +55,41 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         });
     }
 
-    patrol() {
+    updateSight() {
+        this.scene.graphics.clear();
+        // if 'patrol', re-draw triangle
+        this.sightTriangle.x2 += this.x - this.sightTriangle.x1;
+        this.sightTriangle.x3 += this.x - this.sightTriangle.x1;
+        this.sightTriangle.x1 = this.x;
+        this.sightTriangle.y2 += this.y - this.sightTriangle.y1;
+        this.sightTriangle.y3 += this.y - this.sightTriangle.y1;
+        this.sightTriangle.y1 = this.y;
+        this.scene.graphics.lineStyle(1, 0xff0000);
+        this.scene.graphics.strokeTriangleShape(this.sightTriangle);
+    }
+
+    isFound(player) {
+        // get corners of player's collision box
+        const playerPoints = [];
+        playerPoints.push({x: player.body.x, y: player.body.y});
+        playerPoints.push({x: player.body.x + player.body.width, y: player.body.y});
+        playerPoints.push({x: player.body.x, y: player.body.y + player.body.height});
+        playerPoints.push({x: player.body.x + player.body.width, y: player.body.y + player.body.height});
+        return Phaser.Geom.Triangle.ContainsArray(this.sightTriangle, playerPoints).length > 0;
+    }
+
+    patrol(player) {
         if (this.patrolStyle === 'horizontal') {
             this.setVelocityX(this.patrolSpeed);
-            // TODO: fix collider
-            this.scene.physics.add.collider(this, this.scene.obstacles, () => {
-                console.log(this.patrolSpeed);
-                this.patrolSpeed * -1;
-                console.log(this.patrolSpeed);
-
-            });
-
         } else if (this.patrolStyle === 'vertical') {
-
+            
         }
+        if (this.isFound(player)) {
+            this.moveState = 'chase';
+            this.scene.graphics.clear();
+            return;
+        }
+        this.updateSight();
     }
 
     chase(player) {
@@ -67,7 +109,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         const isEnabled = this.body.enable
         if (xVectorNorm < 0 && isEnabled) {
             this.play('moveEnemyRight', true);
-
         } else if (isEnabled) {
             this.play('moveEnemyLeft', true);
         }
@@ -75,7 +116,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(player) {
-        if (this.moveState === 'patrol') this.patrol();
+        if (this.moveState === 'patrol') this.patrol(player);
         else this.chase(player);
     }
 }

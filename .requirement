@@ -18,11 +18,6 @@ to do
 
 doing
 [ ] create 1 stage
-    [] enemy controller
-        [ ] enemy sight
-            - draw sight as sprite
-            - draw directly with Arc Class
-        [v] chase player
     [ ] design a rough stage
 
 done
@@ -32,4 +27,8 @@ done
     [v] obstacles controller
     [v] player controller
     [v] goal controller
+    [v] enemy controller
+        [v] fix turn around
+        [v] enemy sight - draw as Geom.Triangle
+        [v] chase player
 [v] extract objects as files
