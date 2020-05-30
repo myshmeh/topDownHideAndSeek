@@ -14,15 +14,6 @@ class PrototypeStage extends Phaser.Scene {
         });
     }
 
-    preload() {
-        this.load.image('floor', 'img/floor.png');
-        this.load.image('goal', 'img/goal.png');
-        this.load.image('obstacle', 'img/obstacle.png');
-        this.load.spritesheet('player', 'img/MantisMove.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('enemy', 'img/MaggotWalk.png', { frameWidth: 32, frameHeight: 32 });
-        console.log(this.load.textureManager);
-    }
-
     createStatics() {
         this.add.image(0, 0, 'floor').setOrigin(0);
         this.obstacles = this.physics.add.staticGroup();
@@ -51,9 +42,9 @@ class PrototypeStage extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
+            new Enemy(this, 140, 80, 'enemy', 0, 'horizontal'),
             new Enemy(this, 240, 240, 'enemy', 0, 'horizontal'), 
-            new Enemy(this, 240, 80, 'enemy', 0, 'horizontal'),
-            new Enemy(this, 240, 400, 'enemy', 0, 'horizontal'),
+            new Enemy(this, 340, 400, 'enemy', 0, 'horizontal'),
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);
@@ -80,6 +71,7 @@ class PrototypeStage extends Phaser.Scene {
                 enemy.disableBody(true)}
             );
             console.log('Congratullation!');
+            this.scene.start('gameOver');
         };
         this.physics.add.overlap(this.player, this.goal, clearStage);
     }

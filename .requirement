@@ -13,8 +13,6 @@ game structure
 backlog
 
 to do
-[ ] create main menu scene
-[ ] create game clear scene
 
 doing
 
@@ -31,3 +29,5 @@ done
         [v] chase player
     [v] design and make tutorial like stage
 [v] extract objects as files
+[v] create main menu scene
+[v] create game clear scene

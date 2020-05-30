@@ -1,7 +1,7 @@
 const config = {
     type: Phaser.AUTO,
-    width: 640,
-    height: 480,
+    width: WIDTH,
+    height: HEIGHT,
     backgroundColor: '#000',
     pixelArt: true,
     physics: {
@@ -15,7 +15,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [ PrototypeStage ]
+    scene: [ Preloader, Menu, PrototypeStage, GameOver ]
 };
 
 const game = new Phaser.Game(config);
