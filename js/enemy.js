@@ -56,7 +56,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     updateSight() {
-        this.scene.graphics.clear();
         // if 'patrol', re-draw triangle
         this.sightTriangle.x2 += this.x - this.sightTriangle.x1;
         this.sightTriangle.x3 += this.x - this.sightTriangle.x1;
