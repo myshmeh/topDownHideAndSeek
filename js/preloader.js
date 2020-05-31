@@ -19,7 +19,7 @@ class Preloader extends Phaser.Scene {
         this.plugins.get('rexwebfontloaderplugin').addToScene(this);
         const fontLoadConfig = {
             google: {
-                families: [FONTS.MONOTON, FONTS.CREEPSTER]
+                families: [FONTS.MONOTON, FONTS.CREEPSTER, FONTS.PRESS_START_2P]
             }
         }
         this.load.rexWebFont(fontLoadConfig);

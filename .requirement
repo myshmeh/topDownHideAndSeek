@@ -1,20 +1,53 @@
 agreement
 - hide and seek game
 - story telling involved
+- when player die, return to stage1
+- do not explain detail about KOMUGIKO
+- hypo→validate→pleasure cycle per stage
+- work in Smart Phone
+    - make stages as vertical-long rectangle
+    - move player by touching?
 
 game structure
 - menu
-- stage
-    - story scene?
+- introduce
+- stage1(sneak into the home)
+- illastrate room map per stage to tell the progress
 - stage2
+- illastrate room map per stage to tell the progress
 - ...
 - game clear
 
+scenario
+- introduce: 
+    - the friend will be in trap at kitchen
+    - pheromone is emmited from friend
+    - then player go there to help him
+- start: sneak into the home
+- process: pass through rooms on the way to the kitchen without being found
+    - 6 stages inclding tutorial and kitchen
+- goal: help friend in duct tape trap at kitchen
+    - Duct Tape scene is ending event
+    - multiple ending by the amount of KOMUGIKO
+        - player will be in trap (KOMUGIKO 0)
+        - player can escape but friend still traped (1 <KOMUGIKO < 5)
+        - player and friend can escape (KOMUGIKO 5)
+
+--------------------------------------------------------------------------------
 backlog
 
 to do
+[ ] make stages
+[ ] make intro scene
+[ ] make map scene - reffer to ATASHINCHI
+[ ] make Duct Tape(ending) scene
+    [ ] KOMUGIKO 0
+    [ ] KOMUGIKO not enough
+    [ ] KOMUGIKO perfect
 
 doing
+[ ] make stage1(sneaking into home)
+    [ ] implement
 
 done
 [v] create 1 stage
@@ -31,3 +64,11 @@ done
 [v] extract objects as files
 [v] create main menu scene
 [v] create game clear scene
+[v] make scenario flow
+[v] base stage design 
+    [v] stage1: sneaking into the home
+    [v] stage2: child room1
+    [v] stage3: child room2
+    [v] stage4: Washitsu(Japanese-style room)
+    [v] stage5: living room
+    [v] stage6: kitchen - reach to the duct tape

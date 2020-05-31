@@ -8,7 +8,7 @@ class GameOver extends Phaser.Scene {
 
     create() {
         this.add.text(WIDTH * 0.5, HEIGHT * 0.4, 'CONGRATS!!', {
-            fontFamily: FONTS.CREEPSTER,
+            fontFamily: FONTS.PRESS_START_2P,
             fontSize: '64px',
             color: '#fff',
             align: 'center'
