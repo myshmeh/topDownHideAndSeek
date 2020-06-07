@@ -19,12 +19,17 @@ class Preloader extends Phaser.Scene {
         this.plugins.get('rexwebfontloaderplugin').addToScene(this);
         const fontLoadConfig = {
             google: {
-                families: [FONTS.MONOTON, FONTS.CREEPSTER, FONTS.PRESS_START_2P]
+                // for developing speed, avoid fetching press start 2p
+                // families: [FONTS.MONOTON, FONTS.CREEPSTER, FONTS.PRESS_START_2P]
+                families: [FONTS.MONOTON, FONTS.CREEPSTER]
             }
         }
         this.load.rexWebFont(fontLoadConfig);
         this.load.atlas('sprites', 'img/spritearray.png', 'img/spritearray.json');
+        this.load.image('asphalt', 'img/asphalt.png');
+        this.load.image('key', 'img/key.png');
         this.load.image('floor', 'img/floor.png');
+        this.load.image('home', 'img/home.png');
         this.load.image('goal', 'img/goal.png');
         this.load.image('obstacle', 'img/obstacle.png');
         this.load.spritesheet('player', 'img/MantisMove.png', { frameWidth: 32, frameHeight: 32 });
@@ -32,6 +37,7 @@ class Preloader extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('menu');
+        // this.scene.start('menu');
+        this.scene.start('stage1');
     }
 }

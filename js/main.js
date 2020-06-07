@@ -15,7 +15,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [ Preloader, Menu, PrototypeStage, GameOver ]
+    scene: [ Preloader, Menu, Stage1, Stage2, GameOver ]
 };
 
 const game = new Phaser.Game(config);

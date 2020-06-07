@@ -47,7 +47,10 @@ to do
 
 doing
 [ ] make stage1(sneaking into home)
-    [ ] implement
+    [v] implement
+        [v] player can obtain items
+    [ ] refactor
+        [ ] extract overlap callbacks to utility module
 
 done
 [v] create 1 stage
@@ -72,3 +75,4 @@ done
     [v] stage4: Washitsu(Japanese-style room)
     [v] stage5: living room
     [v] stage6: kitchen - reach to the duct tape
+[v] adjust size to iPhone6/7/8

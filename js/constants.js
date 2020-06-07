@@ -1,5 +1,5 @@
-const WIDTH = 640;
-const HEIGHT = 480;
+const WIDTH = 375;
+const HEIGHT = 667;
 
 const FONTS = {
     MONOTON: 'Monoton',

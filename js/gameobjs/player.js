@@ -1,5 +1,6 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
     cursors;
+    items;
 
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
@@ -7,8 +8,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
+        this.items = [];
         this.initAnims(scene);
         this.cursors = scene.input.keyboard.createCursorKeys();
+    }
+
+    getItems() {
+        return this.items;
+    }
+
+    addItem(item) {
+        this.items.push(item);
     }
 
     initAnims(scene) {

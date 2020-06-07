@@ -13,3 +13,28 @@ Phaser.Scene.prototype.addButton = function(x, y, key, callback, callbackContext
 		
 		return btn;
 };
+
+// NOTE: world.collideSpriteVsGroup() is opinionated in passing args
+Phaser.Scene.prototype.arrestPlayer = (player, enemy) => {
+	console.log(enemy);
+	console.log(player);
+	player.play('idle');
+	player.disableBody(true);
+	enemy.play('enemyIdle');
+	enemy.disableBody(true);
+	player.setTint(0xff0000);
+	console.log('Player was Arrested!');
+};
+
+Phaser.Scene.prototype.obtainItem = (player, item) => {
+	console.log('obtained item!');
+	item.disableBody(true, true);
+	player.addItem(item);
+}
+
+Phaser.Scene.prototype.clearStage = (nextScene, clearConditionChecker) => {
+	if (!clearConditionChecker()) return;
+	console.log('Congratullation!');
+	console.log(this);
+	this.scene.start(nextScene);
+};
