@@ -28,6 +28,7 @@ class Preloader extends Phaser.Scene {
         this.load.atlas('sprites', 'img/spritearray.png', 'img/spritearray.json');
         this.load.image('asphalt', 'img/asphalt.png');
         this.load.image('key', 'img/key.png');
+        this.load.image('powder', 'img/powder.png');
         this.load.image('floor', 'img/floor.png');
         this.load.image('home', 'img/home.png');
         this.load.image('goal', 'img/goal.png');

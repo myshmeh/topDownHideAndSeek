@@ -32,9 +32,8 @@ Phaser.Scene.prototype.obtainItem = (player, item) => {
 	player.addItem(item);
 }
 
-Phaser.Scene.prototype.clearStage = (nextScene, clearConditionChecker) => {
+const clearStage = (currentScene, nextScene, clearConditionChecker) => {
 	if (!clearConditionChecker()) return;
 	console.log('Congratullation!');
-	console.log(this);
-	this.scene.start(nextScene);
+	currentScene.scene.start(nextScene, { powderCount: currentScene.player.getItems().powder });
 };

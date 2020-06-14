@@ -1,5 +1,7 @@
 const WIDTH = 375;
 const HEIGHT = 667;
+const BORDER_THICKNESS = 16;
+const ITEM_BAR_HEIGHT = 50;
 
 const FONTS = {
     MONOTON: 'Monoton',

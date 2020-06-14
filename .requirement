@@ -46,11 +46,7 @@ to do
     [ ] KOMUGIKO perfect
 
 doing
-[ ] make stage1(sneaking into home)
-    [v] implement
-        [v] player can obtain items
-    [ ] refactor
-        [ ] extract overlap callbacks to utility module
+
 
 done
 [v] create 1 stage
@@ -76,3 +72,11 @@ done
     [v] stage5: living room
     [v] stage6: kitchen - reach to the duct tape
 [v] adjust size to iPhone6/7/8
+[v] make stage1(sneaking into home)
+    [v] implement
+        [v] player can obtain items
+    [v] refactor
+        [v] extract overlap callbacks to utility module
+            [v] fix this issue in Phaser.Scene.prototype.clearStage()
+[v] make stage2(child room)
+    [v] hands items over next stage

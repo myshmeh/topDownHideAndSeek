@@ -17,23 +17,24 @@ class Stage1 extends Phaser.Scene {
     }
 
     createStatics() {
-        this.add.image(0, 50, 'asphalt').setOrigin(0);
+        this.add.image(0, ITEM_BAR_HEIGHT, 'asphalt').setOrigin(0);
         this.obstacles = this.physics.add.staticGroup();
 
         // item
         this.key = this.physics.add.staticImage(WIDTH * 0.5, HEIGHT * 0.5, 'key');
+        this.key.name = 'key';
 
         // outside border
-        this.obstacles.create(0, 50, 'obstacle').setOrigin(0, 0).setScale(12, 0.5).refreshBody();
-        this.obstacles.create(0, 667, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
-        this.obstacles.create(0, 50, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
-        this.obstacles.create(375, 50, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
+        this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0, 0).setScale(12, 0.5).refreshBody();
+        this.obstacles.create(0, HEIGHT, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
+        this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
+        this.obstacles.create(WIDTH, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.goal = this.physics.add.staticImage(320, 610, 'home');
         this.goal.body.setSize(1, 1);
     }
 
     drawItems() {
-        this.itemInfoText.text = `key: ${this.player.getItems().length}`;
+        this.itemInfoText.text = `key: ${this.player.getItems().key}`;
     }
 
     create() {
@@ -44,7 +45,7 @@ class Stage1 extends Phaser.Scene {
         // platforms
         this.createStatics();
         // player
-        this.player = new Player(this, 70, 100, 'player', 0);
+        this.player = new Player(this, 70, 100, 'player', 0, 0);
         this.physics.add.collider(this.player, this.obstacles);
 
         // enemy
@@ -59,7 +60,7 @@ class Stage1 extends Phaser.Scene {
         // player overlaps (overlap callbacks are in phaser_addon.js)
         this.physics.add.overlap(this.player, this.enemyGroup, this.arrestPlayer);
         this.physics.add.overlap(this.player, this.key, this.obtainItem);
-        this.physics.add.overlap(this.player, this.goal, this.clearStage.bind(this, 'stage2', () => {return this.player.getItems().length}));
+        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage2', () => {return this.player.getItems().key}));
     }
 
     update() {
