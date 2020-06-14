@@ -32,8 +32,11 @@ Phaser.Scene.prototype.obtainItem = (player, item) => {
 	player.addItem(item);
 }
 
-const clearStage = (currentScene, nextScene, clearConditionChecker) => {
-	if (!clearConditionChecker()) return;
+const returnTrue = () => true;
+
+const clearStage = (currentScene, nextScene) => {
+	if (!currentScene.player.getItems().key) return;
 	console.log('Congratullation!');
-	currentScene.scene.start(nextScene, { powderCount: currentScene.player.getItems().powder });
+	console.log(currentScene.player.getItems());
+	currentScene.scene.start(nextScene, { items: currentScene.player.getItems() });
 };

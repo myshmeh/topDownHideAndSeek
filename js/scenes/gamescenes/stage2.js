@@ -1,11 +1,11 @@
 class Stage2 extends Phaser.Scene {
     obstacles;
-    graphics;
     player;
+    graphics;
     enemy;
-    itemInfoText;
     powders;
-    powderCount;
+    itemInfoText;
+    previousItems;
 
     constructor() {
         super({
@@ -14,7 +14,7 @@ class Stage2 extends Phaser.Scene {
     }
 
     init(data) {
-        this.powderCount = data.powderCount;
+        this.previousItems = data.items;
     }
 
     createStatics() {
@@ -52,7 +52,7 @@ class Stage2 extends Phaser.Scene {
         this.createStatics();
 
         // player
-        this.player = new Player(this, 70, 100, 'player', 0, this.powderCount);
+        this.player = new Player(this, 70, 100, 'player', 0, this.previousItems);
         this.physics.add.collider(this.player, this.obstacles);
 
         // enemy
@@ -63,7 +63,7 @@ class Stage2 extends Phaser.Scene {
         // overlap callbacks
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.enemy, this.arrestPlayer);
-        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'gameOver', () => {return this.player.getItems().length}));
+        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'gameOver'));
 
     }
 

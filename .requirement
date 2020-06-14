@@ -80,3 +80,4 @@ done
             [v] fix this issue in Phaser.Scene.prototype.clearStage()
 [v] make stage2(child room)
     [v] hands items over next stage
+    [v] refactor clearStage()

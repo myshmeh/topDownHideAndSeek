@@ -45,7 +45,7 @@ class Stage1 extends Phaser.Scene {
         // platforms
         this.createStatics();
         // player
-        this.player = new Player(this, 70, 100, 'player', 0, 0);
+        this.player = new Player(this, 70, 100, 'player', 0, { key: 0, powder: 0});
         this.physics.add.collider(this.player, this.obstacles);
 
         // enemy
@@ -60,7 +60,7 @@ class Stage1 extends Phaser.Scene {
         // player overlaps (overlap callbacks are in phaser_addon.js)
         this.physics.add.overlap(this.player, this.enemyGroup, this.arrestPlayer);
         this.physics.add.overlap(this.player, this.key, this.obtainItem);
-        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage2', () => {return this.player.getItems().key}));
+        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage2'));
     }
 
     update() {

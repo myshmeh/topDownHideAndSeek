@@ -2,13 +2,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     cursors;
     items;
 
-    constructor(scene, x, y, texture, frame, powderCount) {
+    constructor(scene, x, y, texture, frame, items) {
         super(scene, x, y, texture, frame);
         // add to scene
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.items = {'key': 0, 'powder': powderCount};
+        this.items = items;
         this.initAnims(scene);
         this.cursors = scene.input.keyboard.createCursorKeys();
     }
