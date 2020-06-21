@@ -2,10 +2,12 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     moveState;
     patrolStyle;
     patrolSpeed;
+    chaseSpeed;
     scene;
-    sightTriangle;
+    sightShape;
+    sightShapeType;
 
-    constructor(scene, x, y, texture, frame, patrolStyle) {
+    constructor(scene, x, y, texture, frame, patrolStyle, sightShapeType, patrolSpeed=25, chaseSpeed=50) {
         super(scene, x, y, texture, frame);
         this.scene = scene;
         this.scene.add.existing(this);
@@ -14,11 +16,19 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.moveState = 'patrol';
         this.patrolStyle = patrolStyle;
-        this.patrolSpeed = 25;
-
-        this.sightTriangle = this.createTriangle(x, y, 80, 40);
-        this.scene.graphics.lineStyle(2, 0xff0000);
-        this.scene.graphics.strokeTriangleShape(this.sightTriangle);
+        this.patrolSpeed = patrolSpeed;
+        this.chaseSpeed = chaseSpeed;
+        
+        this.sightShapeType = sightShapeType;
+        if (this.sightShapeType === 'triangle') {
+            this.sightShape = this.createTriangle(x, y, 80, 40);
+            this.scene.graphics.lineStyle(1, 0xff0000);
+            this.scene.graphics.strokeTriangleShape(this.sightShape);
+        } else {
+            this.sightShape = this.createCircle(x, y, 150);
+            this.scene.graphics.lineStyle(1, 0xff0000);
+            this.scene.graphics.strokeCircleShape(this.sightShape);
+        }
     }
 
     createTriangle(vertexX, vertexY, sightDistance, sightRange) {
@@ -29,10 +39,14 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         return new Phaser.Geom.Triangle(vertexX, vertexY, point1X, point1Y, point2X, point2Y);
     }
 
+    createCircle(enemyX, enemyY, sightRadius) {
+        return new Phaser.Geom.Circle(enemyX, enemyY, sightRadius);
+    }
+
     createCollisionMove() {
         this.scene.physics.add.collider(this, this.scene.obstacles, () => {
             this.patrolSpeed *= -1;
-            Phaser.Geom.Triangle.RotateAroundXY(this.sightTriangle, this.x, this.y, Math.PI);
+            Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, Math.PI);
         });
     }
 
@@ -55,16 +69,21 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         });
     }
 
-    updateSight() {
+    updateSightTriangle() {
         // if 'patrol', re-draw triangle
-        this.sightTriangle.x2 += this.x - this.sightTriangle.x1;
-        this.sightTriangle.x3 += this.x - this.sightTriangle.x1;
-        this.sightTriangle.x1 = this.x;
-        this.sightTriangle.y2 += this.y - this.sightTriangle.y1;
-        this.sightTriangle.y3 += this.y - this.sightTriangle.y1;
-        this.sightTriangle.y1 = this.y;
+        this.sightShape.x2 += this.x - this.sightShape.x1;
+        this.sightShape.x3 += this.x - this.sightShape.x1;
+        this.sightShape.x1 = this.x;
+        this.sightShape.y2 += this.y - this.sightShape.y1;
+        this.sightShape.y3 += this.y - this.sightShape.y1;
+        this.sightShape.y1 = this.y;
         this.scene.graphics.lineStyle(1, 0xff0000);
-        this.scene.graphics.strokeTriangleShape(this.sightTriangle);
+        this.scene.graphics.strokeTriangleShape(this.sightShape);
+    }
+
+    updateSightCircle() {
+        this.scene.graphics.lineStyle(1, 0xff0000);
+        this.scene.graphics.strokeCircleShape(this.sightShape);
     }
 
     isFound(player) {
@@ -74,7 +93,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         playerPoints.push({x: player.body.x + player.body.width, y: player.body.y});
         playerPoints.push({x: player.body.x, y: player.body.y + player.body.height});
         playerPoints.push({x: player.body.x + player.body.width, y: player.body.y + player.body.height});
-        return Phaser.Geom.Triangle.ContainsArray(this.sightTriangle, playerPoints).length > 0;
+        if (this.sightShapeType === 'triangle') return Phaser.Geom.Triangle.ContainsArray(this.sightShape, playerPoints).length > 0;
+        else return playerPoints.some(point => Phaser.Geom.Circle.ContainsPoint(this.sightShape, point));
     }
 
     patrol(player) {
@@ -82,13 +102,18 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(this.patrolSpeed);
         } else if (this.patrolStyle === 'vertical') {
             
+        } else if (this.patrolStyle === 'idle') {
+            // noting to do    
         }
+        // when player is found
         if (this.isFound(player)) {
             this.moveState = 'chase';
             this.scene.graphics.clear();
             return;
         }
-        this.updateSight();
+        // draw sight
+        if (this.sightShapeType === 'triangle') this.updateSightTriangle();
+        if (this.sightShapeType === 'circle') this.updateSightCircle();
     }
 
     chase(player) {
@@ -111,7 +136,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         } else if (isEnabled) {
             this.play('moveEnemyLeft', true);
         }
-        this.setVelocity(xVectorNorm * 50, yVectorNorm * 50); // coefficient determines speed
+        this.setVelocity(xVectorNorm * this.chaseSpeed, yVectorNorm * this.chaseSpeed); // coefficient determines speed
     }
 
     update(player) {

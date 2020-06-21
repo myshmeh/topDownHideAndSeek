@@ -57,13 +57,13 @@ class Stage2 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'enemy', 0, 'horizontal');
+        this.enemy = new Enemy(this, 240, 350, 'enemy', 0, 'horizontal', 'triangle');
         this.enemy.createCollisionMove();
         
         // overlap callbacks
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.enemy, this.arrestPlayer);
-        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'gameOver'));
+        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage3'));
 
     }
 

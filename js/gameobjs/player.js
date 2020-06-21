@@ -21,6 +21,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.items[item.name] += 1;
     }
 
+    usePowder() {
+        this.items.powder -= 1;
+    }
+
     initAnims(scene) {
         scene.anims.create({
             key: 'moveDown',

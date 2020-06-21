@@ -32,7 +32,20 @@ Phaser.Scene.prototype.obtainItem = (player, item) => {
 	player.addItem(item);
 }
 
-const returnTrue = () => true;
+Phaser.Scene.prototype.onTrapped = (player, trap) => {
+	console.log('player is on trap!');
+	if (player.getItems().powder === 0) {
+		player.play('idle');
+		player.disableBody(true);
+		player.setTint(0xff0000);
+		console.log('player died...');
+	} else {
+		player.usePowder();
+		trap.play('powdered_slime');// powder on trap
+		trap.disableBody(true);
+		console.log('player used powder to escape from trap!!');
+	}
+}
 
 const clearStage = (currentScene, nextScene) => {
 	if (!currentScene.player.getItems().key) return;

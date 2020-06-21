@@ -38,12 +38,16 @@ backlog
 
 to do
 [ ] make stages
+[ ] adjust to smart phone
+[ ] make sound effect
 [ ] make intro scene
 [ ] make map scene - reffer to ATASHINCHI
 [ ] make Duct Tape(ending) scene
     [ ] KOMUGIKO 0
     [ ] KOMUGIKO not enough
     [ ] KOMUGIKO perfect
+[ ] draw UI
+[ ] refactor
 
 doing
 
@@ -60,10 +64,13 @@ done
         [v] enemy sight - draw as Geom.Triangle
         [v] chase player
     [v] design and make tutorial like stage
+
 [v] extract objects as files
 [v] create main menu scene
 [v] create game clear scene
 [v] make scenario flow
+[v] adjust size to iPhone6/7/8
+
 [v] base stage design 
     [v] stage1: sneaking into the home
     [v] stage2: child room1
@@ -71,13 +78,17 @@ done
     [v] stage4: Washitsu(Japanese-style room)
     [v] stage5: living room
     [v] stage6: kitchen - reach to the duct tape
-[v] adjust size to iPhone6/7/8
-[v] make stage1(sneaking into home)
-    [v] implement
-        [v] player can obtain items
-    [v] refactor
-        [v] extract overlap callbacks to utility module
-            [v] fix this issue in Phaser.Scene.prototype.clearStage()
-[v] make stage2(child room)
-    [v] hands items over next stage
-    [v] refactor clearStage()
+
+[ ] make stages
+    [v] make stage1(sneaking into home)
+        [v] implement
+            [v] player can obtain items
+        [v] refactor
+            [v] extract overlap callbacks to utility module
+                [v] fix this issue in Phaser.Scene.prototype.clearStage()
+    [v] make stage2(child room)
+        [v] hands items over next stage
+        [v] refactor clearStage()
+    [v] make stage3 
+        [v] make sight of enemy and speed be flexible
+        [v] make sticky trap
