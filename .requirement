@@ -37,14 +37,15 @@ scenario
 backlog
 
 to do
-[ ] make sound effect
 [ ] make intro scene
-[ ] make map scene - reffer to ATASHINCHI
 [ ] make Duct Tape(ending) scene
     [ ] KOMUGIKO 0
     [ ] KOMUGIKO not enough
     [ ] KOMUGIKO perfect
+[ ] make map scene - reffer to ATASHINCHI
 [ ] improve UI
+--------------release line---------------
+[ ] make sound effect
 [ ] refactor
 
 doing
@@ -52,7 +53,6 @@ doing
     [ ] make stage6
         [ ] introduce enemy option
 [ ] adjust to smart phone
-
 
 done
 [v] create 1 stage
