@@ -36,7 +36,7 @@ class Preloader extends Phaser.Scene {
         this.load.image('goal', 'img/goal.png');
         this.load.image('obstacle', 'img/obstacle.png');
         this.load.spritesheet('player', 'img/MantisMove.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('enemy', 'img/MaggotWalk.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('enemy', 'img/MaggotWalk.png', { frameWidth: 64, frameHeight: 64 });
     }
 
     create() {
@@ -46,6 +46,6 @@ class Preloader extends Phaser.Scene {
         });
 
         // this.scene.start('menu');
-        this.scene.start('stage1');
+        this.scene.start('stage6', {items: {key: 1, powder: 1}});
     }
 }

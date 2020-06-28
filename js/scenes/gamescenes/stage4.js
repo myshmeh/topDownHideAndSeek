@@ -1,8 +1,9 @@
-class Stage3 extends Phaser.Scene {
+class Stage4 extends Phaser.Scene {
+
     obstacles;
     player;
     graphics;
-    enemy;
+    enemyGroup;
     powders;
     traps;
     itemInfoText;
@@ -10,7 +11,7 @@ class Stage3 extends Phaser.Scene {
 
     constructor() {
         super({
-            key: 'stage3'
+            key: 'stage4'
         });
     }
 
@@ -31,20 +32,14 @@ class Stage3 extends Phaser.Scene {
         // scatter powder
         this.powders = this.physics.add.staticGroup();
         this.powders.create(WIDTH * 0.15, HEIGHT * 0.95, 'powder');
+        this.powders.create(WIDTH * 0.7, HEIGHT * 0.5, 'powder');
         this.powders.getChildren().forEach(powder => powder.name = 'powder');
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.6, HEIGHT * 0.2, 'slime');
-        this.traps.create(WIDTH * 0.4, HEIGHT * 0.25, 'slime');
-        this.traps.create(WIDTH * 0.3, HEIGHT * 0.35, 'slime');
-        this.traps.create(WIDTH * 0.1, HEIGHT * 0.5, 'slime');
-        this.traps.create(WIDTH * 0.25, HEIGHT * 0.525, 'slime');
-        this.traps.create(WIDTH * 0.075, HEIGHT * 0.7, 'slime');
-        this.traps.create(WIDTH * 0.35, HEIGHT * 0.7, 'slime');
-        this.traps.create(WIDTH * 0.15, HEIGHT * 0.85, 'slime');
-        this.traps.create(WIDTH * 0.5, HEIGHT * 0.8, 'slime');
-        this.traps.create(WIDTH * 0.6, HEIGHT * 0.9, 'slime');
+        this.traps.create(WIDTH * 0.7, HEIGHT * 0.15, 'slime');
+        this.traps.create(WIDTH * 0.15, HEIGHT * 0.25, 'slime');
+        this.traps.create(WIDTH * 0.3, HEIGHT * 0.3, 'slime');
 
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
@@ -66,14 +61,18 @@ class Stage3 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'enemy', 0, 'idle', 'circle', 0, 100);
-        this.enemy.createCollisionMove();
+        const enemies = [
+            new Enemy(this, WIDTH * 0.4, HEIGHT * 0.35, 'enemy', 0, 'horizontal', 'triangle', 25),
+            new Enemy(this, WIDTH * 0.35, HEIGHT * 0.6, 'enemy', 0, 'idle', 'circle', 0, 100)
+        ];
+        enemies.forEach(enemy => enemy.createCollisionMove());
+        this.enemyGroup = this.physics.add.group(enemies);
         
         // overlap callbacks
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.traps, this.onTrapped);
-        this.physics.add.overlap(this.player, this.enemy, this.arrestPlayer);
-        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage4'));
+        this.physics.add.overlap(this.player, this.enemyGroup, this.arrestPlayer);
+        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage5'));
 
     }
 
@@ -81,6 +80,6 @@ class Stage3 extends Phaser.Scene {
         this.graphics.clear();
         this.drawItems();
         this.player.update();
-        this.enemy.update(this.player);
+        this.enemyGroup.getChildren().forEach(enemy => enemy.update(this.player));
     }
 }

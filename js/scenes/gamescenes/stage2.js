@@ -39,7 +39,7 @@ class Stage2 extends Phaser.Scene {
 
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
-        this.goal.body.setSize(1, 1);
+        this.goal.body.setSize(40, 40);
     }
 
     drawItems() {

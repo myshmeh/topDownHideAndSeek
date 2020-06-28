@@ -7,7 +7,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     sightShape;
     sightShapeType;
 
-    constructor(scene, x, y, texture, frame, patrolStyle, sightShapeType, patrolSpeed=25, chaseSpeed=50) {
+    constructor(scene, x, y, texture, frame, patrolStyle, sightShapeType, 
+        patrolSpeed=50, chaseSpeed=75, sightDistance=80, sightRange=40, sightRadius=150) {
+
         super(scene, x, y, texture, frame);
         this.scene = scene;
         this.scene.add.existing(this);
@@ -21,11 +23,11 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         
         this.sightShapeType = sightShapeType;
         if (this.sightShapeType === 'triangle') {
-            this.sightShape = this.createTriangle(x, y, 80, 40);
+            this.sightShape = this.createTriangle(x, y, sightDistance, sightRange);
             this.scene.graphics.lineStyle(1, 0xff0000);
             this.scene.graphics.strokeTriangleShape(this.sightShape);
         } else {
-            this.sightShape = this.createCircle(x, y, 150);
+            this.sightShape = this.createCircle(x, y, sightRadius);
             this.scene.graphics.lineStyle(1, 0xff0000);
             this.scene.graphics.strokeCircleShape(this.sightShape);
         }
@@ -53,13 +55,13 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     initAnims(scene) {
         scene.anims.create({
             key: 'moveEnemyRight',
-            frames: scene.anims.generateFrameNumbers('enemy', {start: 4, end: 7}),
+            frames: scene.anims.generateFrameNumbers('enemy', {start: 8, end: 11}),
             frameRate: 10,
             repeat: -1
         });
         scene.anims.create({
             key: 'moveEnemyLeft',
-            frames: scene.anims.generateFrameNumbers('enemy', {start: 8, end: 11}),
+            frames: scene.anims.generateFrameNumbers('enemy', {start: 4, end: 7}),
             frameRate: 10,
             repeat: -1
         });
@@ -77,11 +79,24 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.sightShape.y2 += this.y - this.sightShape.y1;
         this.sightShape.y3 += this.y - this.sightShape.y1;
         this.sightShape.y1 = this.y;
+    }
+
+    drawSightTriangle() {
         this.scene.graphics.lineStyle(1, 0xff0000);
         this.scene.graphics.strokeTriangleShape(this.sightShape);
     }
 
+    rotateSightTriangle() {
+        if (this.patrolSpeed > 0) Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, Math.PI * 0.0075);
+        else Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, Math.PI * -0.0075);
+    }
+
     updateSightCircle() {
+        this.sightShape.x = this.x;
+        this.sightShape.y = this.y;
+    }
+
+    drawSightCircle() {
         this.scene.graphics.lineStyle(1, 0xff0000);
         this.scene.graphics.strokeCircleShape(this.sightShape);
     }
@@ -100,8 +115,22 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     patrol(player) {
         if (this.patrolStyle === 'horizontal') {
             this.setVelocityX(this.patrolSpeed);
+            // update sight per moving
+            if (this.sightShapeType === 'triangle') {
+                this.updateSightTriangle();
+            } else {
+                this.updateSightCircle();
+            }
+            // move anim
+            if (this.patrolSpeed > 0) {
+                this.play('moveEnemyRight', true);
+            } else {
+                this.play('moveEnemyLeft', true);
+            }
         } else if (this.patrolStyle === 'vertical') {
             
+        } else if (this.patrolStyle === 'rotate') {
+            this.rotateSightTriangle();
         } else if (this.patrolStyle === 'idle') {
             // noting to do    
         }
@@ -112,8 +141,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             return;
         }
         // draw sight
-        if (this.sightShapeType === 'triangle') this.updateSightTriangle();
-        if (this.sightShapeType === 'circle') this.updateSightCircle();
+        if (this.sightShapeType === 'triangle') this.drawSightTriangle();
+        if (this.sightShapeType === 'circle') this.drawSightCircle();
     }
 
     chase(player) {
@@ -132,9 +161,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         const yVectorNorm = yVector / vector;
         const isEnabled = this.body.enable
         if (xVectorNorm < 0 && isEnabled) {
-            this.play('moveEnemyRight', true);
-        } else if (isEnabled) {
             this.play('moveEnemyLeft', true);
+        } else if (isEnabled) {
+            this.play('moveEnemyRight', true);
         }
         this.setVelocity(xVectorNorm * this.chaseSpeed, yVectorNorm * this.chaseSpeed); // coefficient determines speed
     }

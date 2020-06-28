@@ -37,8 +37,6 @@ scenario
 backlog
 
 to do
-[ ] make stages
-[ ] adjust to smart phone
 [ ] make sound effect
 [ ] make intro scene
 [ ] make map scene - reffer to ATASHINCHI
@@ -46,10 +44,14 @@ to do
     [ ] KOMUGIKO 0
     [ ] KOMUGIKO not enough
     [ ] KOMUGIKO perfect
-[ ] draw UI
+[ ] improve UI
 [ ] refactor
 
 doing
+[ ] make stages
+    [ ] make stage6
+        [ ] introduce enemy option
+[ ] adjust to smart phone
 
 
 done
@@ -92,3 +94,5 @@ done
     [v] make stage3 
         [v] make sight of enemy and speed be flexible
         [v] make sticky trap
+    [v] make stage4
+    [v] make stage5

@@ -30,7 +30,7 @@ class Stage1 extends Phaser.Scene {
         this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.goal = this.physics.add.staticImage(320, 610, 'home');
-        this.goal.body.setSize(1, 1);
+        this.goal.body.setSize(40, 40);
     }
 
     drawItems() {
