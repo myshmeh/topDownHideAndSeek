@@ -24,6 +24,10 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.sightShapeType = sightShapeType;
         if (this.sightShapeType === 'triangle') {
             this.sightShape = this.createTriangle(x, y, sightDistance, sightRange);
+            if (this.patrolSpeed < 0 && this.patrolStyle === 'vertical')
+                Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, -Math.PI * 0.5);
+            else if (this.patrolSpeed > 0 && this.patrolStyle === 'vertical')
+                Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, Math.PI * 0.5);
             this.scene.graphics.lineStyle(1, 0xff0000);
             this.scene.graphics.strokeTriangleShape(this.sightShape);
         } else {
@@ -66,6 +70,18 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             repeat: -1
         });
         scene.anims.create({
+            key: 'moveEnemyUp',
+            frames: scene.anims.generateFrameNumbers('enemy', {start: 12, end: 15}),
+            frameRate: 10,
+            repeat: -1
+        });
+        scene.anims.create({
+            key: 'moveEnemyDown',
+            frames: scene.anims.generateFrameNumbers('enemy', {start: 0, end: 3}),
+            frameRate: 10,
+            repeat: -1
+        });
+        scene.anims.create({
             key: 'enemyIdle',
             frames: [{key: 'enemy', frame: 0}],
         });
@@ -87,8 +103,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     rotateSightTriangle() {
-        if (this.patrolSpeed > 0) Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, Math.PI * 0.0075);
-        else Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, Math.PI * -0.0075);
+        Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, this.patrolSpeed);
     }
 
     updateSightCircle() {
@@ -128,7 +143,19 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
                 this.play('moveEnemyLeft', true);
             }
         } else if (this.patrolStyle === 'vertical') {
-            
+            this.setVelocityY(this.patrolSpeed);
+            // update sight per moving
+            if (this.sightShapeType === 'triangle') {
+                this.updateSightTriangle();
+            } else {
+                this.updateSightCircle();
+            }
+            // move anim
+            if (this.patrolSpeed > 0) {
+                this.play('moveEnemyDown', true);
+            } else {
+                this.play('moveEnemyUp', true);
+            }
         } else if (this.patrolStyle === 'rotate') {
             this.rotateSightTriangle();
         } else if (this.patrolStyle === 'idle') {

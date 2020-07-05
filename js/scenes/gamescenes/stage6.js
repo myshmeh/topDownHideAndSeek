@@ -28,12 +28,14 @@ class Stage6 extends Phaser.Scene {
         this.obstacles.create(0, HEIGHT + BORDER_THICKNESS, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
         this.obstacles.create(0 - BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH + BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
+        this.obstacles.create(WIDTH * 0.35, HEIGHT * 0.3, 'obstacle').setScale(10, 0.5).refreshBody();
+        this.obstacles.create(WIDTH * 0.65, HEIGHT * 0.6, 'obstacle').setScale(10, 0.5).refreshBody();
+        this.obstacles.create(WIDTH * 0.375, HEIGHT * 0.875, 'obstacle').setScale(2, 0.5).refreshBody();
+        this.obstacles.create(WIDTH * 0.7, HEIGHT * 0.8, 'obstacle').setScale(2, 0.5).refreshBody();
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.7, HEIGHT * 0.15, 'slime');
-        this.traps.create(WIDTH * 0.15, HEIGHT * 0.25, 'slime');
-        this.traps.create(WIDTH * 0.5, HEIGHT * 0.85, 'slime');
+        // this.traps.create(WIDTH * 0.375, HEIGHT * 0.9, 'slime');
 
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
@@ -50,22 +52,24 @@ class Stage6 extends Phaser.Scene {
         this.createStatics();
 
         // player
-        this.player = new Player(this, 70, 100, 'player', 0, this.previousItems);
+        this.player = new Player(this, WIDTH * 0.1, HEIGHT * 0.15, 'player', 0, this.previousItems);
         this.physics.add.collider(this.player, this.obstacles);
 
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            // new Enemy(this, WIDTH * 0.3, HEIGHT * 0.4, 'enemy', 0, 'horizontal', 'triangle', 70),
-            // new Enemy(this, WIDTH * 0.6, HEIGHT * 0.6, 'enemy', 0, 'horizontal', 'triangle', 40),
-            // new Enemy(this, WIDTH * 0.5, HEIGHT * 0.7, 'enemy', 0, 'horizontal', 'triangle', 80),
-            new Enemy(this, WIDTH * 0.9, HEIGHT * 0.9, 'enemy', 0, 'horizontal', 'triangle', 100),
-            new Enemy(this, WIDTH * 0.8, HEIGHT * 0.15, 'enemy', 0, 'horizontal', 'triangle', 30, 75),
-            new Enemy(this, WIDTH * 0.2, HEIGHT * 0.6, 'enemy', 0, 'idle', 'circle', 0, 50, 0, 0, 100),
-            new Enemy(this, WIDTH * 0.5, HEIGHT * 0.5, 'enemy', 0, 'rotate', 'triangle', 0, 100, 200, 40, 0)
-            
+            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.7, 'enemy', 0, 'rotate', 'triangle', -Math.PI * 0.0075, 100, 235, 40, 0),
+            new Enemy(this, WIDTH * 0.35, HEIGHT * 0.225, 'enemy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.5, HEIGHT * 0.15, 'enemy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.075, 'enemy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.4, 'enemy', 0, 'horizontal', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.9, 'enemy', 0, 'vertical', 'triangle', 40),
         ];
-        enemies.forEach(enemy => enemy.createCollisionMove());
+        enemies.forEach(enemy => {
+            enemy.setSize(enemy.body.width * 0.5, enemy.body.height * 0.5);
+            enemy.setOffset(enemy.body.width * 0.5, enemy.body.height);
+            enemy.createCollisionMove();
+        });
         this.enemyGroup = this.physics.add.group(enemies);
         
         // overlap callbacks

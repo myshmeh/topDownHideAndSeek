@@ -66,7 +66,7 @@ class Stage5 extends Phaser.Scene {
         const enemies = [
             new Enemy(this, WIDTH * 0.4, HEIGHT * 0.8, 'enemy', 0, 'horizontal', 'triangle', 70),
             new Enemy(this, WIDTH * 0.4, HEIGHT * 0.4, 'enemy', 0, 'idle', 'circle', 0, 100, 0, 0, 100),
-            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.55, 'enemy', 0, 'rotate', 'triangle', 0, 100, 235, 40, 0)
+            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.55, 'enemy', 0, 'rotate', 'triangle', Math.PI * 0.0075, 100, 235, 40, 0)
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);
