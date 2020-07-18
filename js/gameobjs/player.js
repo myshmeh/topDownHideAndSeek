@@ -29,14 +29,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             forceMin: 0,
         };
         this.joyStick = scene.plugins.get('rexvirtualjoystickplugin').add(scene, config);
-        this.joyStick.toggleVisible();
+        this.joyStick.setVisible(false);
         scene.input.on('pointerdown', (pointer) => {
             this.pointed = true;
             this.joyStick.setPosition(pointer.downX, pointer.downY);
-            this.joyStick.toggleVisible();
+            this.joyStick.setVisible(true);
         });
         scene.input.on('pointerup', () => {
-            this.joyStick.toggleVisible();
+            this.joyStick.setVisible(false);
             this.pointed = false;
             this.velX = 0;
             this.velY = 0;
