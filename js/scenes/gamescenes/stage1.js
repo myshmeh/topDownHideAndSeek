@@ -1,15 +1,5 @@
+'use strict';
 class Stage1 extends Phaser.Scene {
-    itemInfoText;
-    obstacles;
-    border;
-    enemyGroup;
-    key;
-    goal;
-    player;
-    cursors;
-    isArrested;
-    graphics;
-
     constructor() {
         super({
             key: 'stage1'
@@ -39,7 +29,6 @@ class Stage1 extends Phaser.Scene {
 
     create() {
         // draw item information
-        // this.itemInfoText = this.add.text(16, 10, 'items: 0', { fontFamily: FONTS.PRESS_START_2P, fontSize: '32px', fill: '#fff' });
         this.itemInfoText = this.add.text(16, 10, 'key: 0', { fontSize: '32px', fill: '#fff' });
 
         // platforms

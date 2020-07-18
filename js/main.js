@@ -1,3 +1,4 @@
+'use strict';
 const config = {
     type: Phaser.AUTO,
     width: WIDTH,
@@ -15,7 +16,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [ Preloader, Menu, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, GameOver ]
+    scene: [ Preloader, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6 ]
 };
 
 const game = new Phaser.Game(config);
