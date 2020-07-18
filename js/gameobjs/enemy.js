@@ -35,6 +35,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.scene.graphics.lineStyle(1, 0xff0000);
             this.scene.graphics.strokeCircleShape(this.sightShape);
         }
+
+        this.setSize(this.body.width * 0.5, this.body.height * 0.5);
+        this.setOffset(this.body.width * 0.5, this.body.height); // to be deleted by centering the pixel art
     }
 
     createTriangle(vertexX, vertexY, sightDistance, sightRange) {

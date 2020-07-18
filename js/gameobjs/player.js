@@ -1,6 +1,10 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
     cursors;
     items;
+    pointed;
+    velX;
+    velY;
+    joyStick;
 
     constructor(scene, x, y, texture, frame, items) {
         super(scene, x, y, texture, frame);
@@ -11,6 +15,40 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.items = items;
         this.initAnims(scene);
         this.cursors = scene.input.keyboard.createCursorKeys();
+        
+        this.velX = 0;
+        this.velY = 0;
+
+        const joyStickRadius = 40;
+        const config = {
+            x: WIDTH * 0.5,
+            y: HEIGHT * 0.9,
+            radius: joyStickRadius,
+            base: scene.add.circle(0, 0, joyStickRadius, 0x888888),
+            thumb: scene.add.circle(0, 0, joyStickRadius * 0.5, 0xcccccc),
+            forceMin: 0,
+        };
+        this.joyStick = scene.plugins.get('rexvirtualjoystickplugin').add(scene, config);
+        this.joyStick.toggleVisible();
+        scene.input.on('pointerdown', (pointer) => {
+            this.pointed = true;
+            this.joyStick.setPosition(pointer.downX, pointer.downY);
+            this.joyStick.toggleVisible();
+        });
+        scene.input.on('pointerup', () => {
+            this.joyStick.toggleVisible();
+            this.pointed = false;
+            this.velX = 0;
+            this.velY = 0;
+        });
+        scene.input.on('pointermove', (pointer) => {
+            if (!this.pointed) return;
+            const acc = 100;
+            const force = this.joyStick.force > joyStickRadius ? joyStickRadius : this.joyStick.force;
+            console.log(force, this.joyStick.force)
+            this.velX = Math.cos(this.joyStick.angle * (Math.PI / 180)) * acc * (force / joyStickRadius);
+            this.velY = Math.sin(this.joyStick.angle * (Math.PI / 180)) * acc * (force / joyStickRadius);
+        });
     }
 
     getItems() {
@@ -57,40 +95,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        let velX = 0;
-        let velY = 0;
-        const acc = 100;
-        if (this.cursors.up.isDown) {
-            velY -= acc;
-        }
-        if (this.cursors.down.isDown) {
-            velY += acc;
-        }
-        if (this.cursors.right.isDown) {
-            velX += acc;
-        }
-        if (this.cursors.left.isDown) {
-            velX -= acc;
-        }
-        if (Math.abs(velX) && Math.abs(velY)) {
-            velX /= Math.sqrt(2);
-            velY /= Math.sqrt(2);
-        }
-        if (velX === 0 && velY === 0) {
-            this.play('idle', true);
-        }
-        else if (velX > 0) {
-            this.play('moveRight', true);
-        }
-        else if (velX < 0) {
-            this.play('moveLeft', true);
-        }
-        else if (velY > 0) {
-            this.play('moveDown', true);
-        }
-        else if (velY < 0) {
-            this.play('moveUp', true);
-        }
-        this.setVelocity(velX, velY);
+        this.setVelocity(this.velX, this.velY);
     }
 }

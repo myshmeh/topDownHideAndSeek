@@ -66,8 +66,6 @@ class Stage6 extends Phaser.Scene {
             new Enemy(this, WIDTH * 0.7, HEIGHT * 0.9, 'enemy', 0, 'vertical', 'triangle', 40),
         ];
         enemies.forEach(enemy => {
-            enemy.setSize(enemy.body.width * 0.5, enemy.body.height * 0.5);
-            enemy.setOffset(enemy.body.width * 0.5, enemy.body.height);
             enemy.createCollisionMove();
         });
         this.enemyGroup = this.physics.add.group(enemies);

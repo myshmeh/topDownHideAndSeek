@@ -16,6 +16,7 @@ class Preloader extends Phaser.Scene {
     }
 
     preload() {
+        this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
         this.plugins.get('rexwebfontloaderplugin').addToScene(this);
         const fontLoadConfig = {
             google: {
@@ -46,6 +47,6 @@ class Preloader extends Phaser.Scene {
         });
 
         // this.scene.start('menu');
-        this.scene.start('stage6', {items: {key: 1, powder: 1}});
+        this.scene.start('stage1', {items: {key: 1, powder: 1}});
     }
 }
