@@ -9,3 +9,7 @@ const FONTS = {
     CREEPSTER: 'Creepster',
 };
 Object.freeze(FONTS);
+
+const PLAYER_ACC = 100;
+const PLAYER_ANIM_MOVE_MS_PER_FRAME_MIN = 50;
+const PLAYER_ANIM_MOVE_MS_PER_FRAME_MAX = 180;

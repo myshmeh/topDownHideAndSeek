@@ -34,15 +34,31 @@ class Preloader extends Phaser.Scene {
         this.load.image('obstacle', 'img/obstacle.png');
         this.load.spritesheet('player', 'img/MantisMove.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('enemy', 'img/MaggotWalk.png', { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('roach_idle', 'img/roach/roach_idle.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('roach_move', 'img/roach/roach_move.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('wood_floor', 'img/objects/wood_floor.png', {frameWidth: 8, frameHeight: 32});
     }
 
     create() {
+        const roachIdleFrames = this.anims.generateFrameNumbers('roach_idle', {start: 0, end: 10});
+        const roachMoveFrames = this.anims.generateFrameNumbers('roach_move');
+        this.anims.create({
+            key: 'roach_idle',
+            frames: roachIdleFrames,
+            frameRate: 8,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'roach_move',
+            frames: roachMoveFrames,
+            frameRate: PLAYER_ANIM_MOVE_MS_PER_FRAME_MIN,
+            repeat: -1
+        });
         this.anims.create({
             key: 'powdered_slime',
             frames: [{key: 'powdered_slime', frame: 0}],
         });
 
-        // this.scene.start('menu');
         this.scene.start('stage1', {items: {key: 1, powder: 1}});
     }
 }

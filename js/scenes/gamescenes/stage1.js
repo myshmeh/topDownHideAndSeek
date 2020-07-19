@@ -34,7 +34,7 @@ class Stage1 extends Phaser.Scene {
         // platforms
         this.createStatics();
         // player
-        this.player = new Player(this, 70, 100, 'player', 0, { key: 0, powder: 0});
+        this.player = new Player(this, 70, 100, 'roach_idle', 0, { key: 0, powder: 0});
         this.physics.add.collider(this.player, this.obstacles);
 
         // enemy
