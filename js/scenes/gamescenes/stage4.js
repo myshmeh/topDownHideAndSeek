@@ -19,18 +19,17 @@ class Stage4 extends Phaser.Scene {
         this.obstacles.create(0 - BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH + BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
 
-        // scatter powder
-        this.powders = this.physics.add.staticGroup();
-        this.powders.create(WIDTH * 0.15, HEIGHT * 0.95, 'powder');
-        this.powders.create(WIDTH * 0.7, HEIGHT * 0.5, 'powder');
-        this.powders.getChildren().forEach(powder => powder.name = 'powder');
-
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.7, HEIGHT * 0.15, 'slime');
-        this.traps.create(WIDTH * 0.15, HEIGHT * 0.25, 'slime');
-        this.traps.create(WIDTH * 0.3, HEIGHT * 0.3, 'slime');
-
+        this.traps.create(WIDTH * 0.6, HEIGHT * 0.15, 'slime');
+        this.traps.create(WIDTH * 0.7, HEIGHT * 0.225, 'slime');
+        this.traps.create(WIDTH * 0.8, HEIGHT * 0.3, 'slime');
+        this.traps.create(WIDTH * 0.825, HEIGHT * 0.375, 'slime');
+        this.traps.create(WIDTH * 0.2, HEIGHT * 0.65, 'slime');
+        this.traps.create(WIDTH * 0.25, HEIGHT * 0.725, 'slime');
+        this.traps.create(WIDTH * 0.275, HEIGHT * 0.825, 'slime');
+        this.traps.create(WIDTH * 0.325, HEIGHT * 0.925, 'slime');
+        
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
         this.goal.body.setSize(40, 40);
@@ -52,8 +51,10 @@ class Stage4 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, WIDTH * 0.4, HEIGHT * 0.35, 'enemy', 0, 'horizontal', 'triangle', 25),
-            new Enemy(this, WIDTH * 0.35, HEIGHT * 0.6, 'enemy', 0, 'idle', 'circle', 0, 100)
+            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.15, 'enemy', 0, 'horizontal', 'triangle', 25),
+            new Enemy(this, WIDTH * 0.1, HEIGHT * 0.4, 'enemy', 0, 'idle', 'circle', 0, 200),
+            new Enemy(this, WIDTH * 0.9, HEIGHT * 0.7, 'enemy', 0, 'idle', 'circle', 0, 200),
+            new Enemy(this, WIDTH * 0.1, HEIGHT * 0.95, 'enemy', 0, 'horizontal', 'triangle', 25)
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);
