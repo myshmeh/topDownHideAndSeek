@@ -1,9 +1,7 @@
 class Preloader extends Phaser.Scene {
-    fontLoaded;
     constructor() {
         super({
             key: 'preloader',
-            // reference: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/webfontloader/
             pack: {
                 files: [{
                     type: 'plugin',
@@ -20,8 +18,6 @@ class Preloader extends Phaser.Scene {
         this.plugins.get('rexwebfontloaderplugin').addToScene(this);
         const fontLoadConfig = {
             google: {
-                // for developing speed, avoid fetching press start 2p
-                // families: [FONTS.MONOTON, FONTS.CREEPSTER, FONTS.PRESS_START_2P]
                 families: [FONTS.MONOTON, FONTS.CREEPSTER]
             }
         }

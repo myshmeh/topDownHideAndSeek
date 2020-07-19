@@ -1,13 +1,4 @@
 class Stage3 extends Phaser.Scene {
-    obstacles;
-    player;
-    graphics;
-    enemy;
-    powders;
-    traps;
-    itemInfoText;
-    previousItems;
-
     constructor() {
         super({
             key: 'stage3'

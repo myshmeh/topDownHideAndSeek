@@ -1,11 +1,5 @@
+'use strict';
 class Player extends Phaser.Physics.Arcade.Sprite {
-    cursors;
-    items;
-    pointed;
-    velX;
-    velY;
-    joyStick;
-
     constructor(scene, x, y, texture, frame, items) {
         super(scene, x, y, texture, frame);
         // add to scene
@@ -45,9 +39,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             if (!this.pointed) return;
             const acc = 100;
             const force = this.joyStick.force > joyStickRadius ? joyStickRadius : this.joyStick.force;
-            console.log(force, this.joyStick.force)
             this.velX = Math.cos(this.joyStick.angle * (Math.PI / 180)) * acc * (force / joyStickRadius);
             this.velY = Math.sin(this.joyStick.angle * (Math.PI / 180)) * acc * (force / joyStickRadius);
+            // console.log(parseInt(force), parseInt(this.joyStick.force), parseInt(this.velX), parseInt(this.velY));
         });
     }
 

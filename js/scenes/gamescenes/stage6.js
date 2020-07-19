@@ -1,14 +1,4 @@
 class Stage6 extends Phaser.Scene {
-
-    obstacles;
-    player;
-    graphics;
-    enemyGroup;
-    powders;
-    traps;
-    itemInfoText;
-    previousItems;
-
     constructor() {
         super({
             key: 'stage6'
