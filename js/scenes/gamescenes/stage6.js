@@ -18,14 +18,15 @@ class Stage6 extends Phaser.Scene {
         this.obstacles.create(0, HEIGHT + BORDER_THICKNESS, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
         this.obstacles.create(0 - BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH + BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
+        // walls
         this.obstacles.create(WIDTH * 0.35, HEIGHT * 0.3, 'obstacle').setScale(10, 0.5).refreshBody();
         this.obstacles.create(WIDTH * 0.65, HEIGHT * 0.6, 'obstacle').setScale(10, 0.5).refreshBody();
         this.obstacles.create(WIDTH * 0.375, HEIGHT * 0.875, 'obstacle').setScale(2, 0.5).refreshBody();
         this.obstacles.create(WIDTH * 0.7, HEIGHT * 0.8, 'obstacle').setScale(2, 0.5).refreshBody();
+        this.obstacles.create(WIDTH * 0.27, HEIGHT * 0.864, 'obstacle').setScale(0.5, 1).refreshBody();
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        // this.traps.create(WIDTH * 0.375, HEIGHT * 0.9, 'slime');
 
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
