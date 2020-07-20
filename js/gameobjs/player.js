@@ -7,7 +7,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
 
         this.items = items;
-        this.initAnims(scene);
         this.cursors = scene.input.keyboard.createCursorKeys();
         
         this.velX = 0;
@@ -37,11 +36,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         });
         scene.input.on('pointermove', (pointer) => {
             if (!this.pointed) return;
-            const acc = 100;
+            this.acc = PLAYER_ACC;
             const force = this.joyStick.force > joyStickRadius ? joyStickRadius : this.joyStick.force;
-            this.velX = Math.cos(this.joyStick.angle * (Math.PI / 180)) * acc * (force / joyStickRadius);
-            this.velY = Math.sin(this.joyStick.angle * (Math.PI / 180)) * acc * (force / joyStickRadius);
-            // console.log(parseInt(force), parseInt(this.joyStick.force), parseInt(this.velX), parseInt(this.velY));
+            this.accRate = force / joyStickRadius;
+            this.velX = Math.cos(this.joyStick.angle * (Math.PI / 180)) * this.acc * this.accRate;
+            this.velY = Math.sin(this.joyStick.angle * (Math.PI / 180)) * this.acc * this.accRate;
         });
     }
 
@@ -57,38 +56,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.items.powder -= 1;
     }
 
-    initAnims(scene) {
-        scene.anims.create({
-            key: 'moveDown',
-            frames: scene.anims.generateFrameNumbers('player', {start: 0, end: 3}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'moveRight',
-            frames: scene.anims.generateFrameNumbers('player', {start: 4, end: 7}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'moveLeft',
-            frames: scene.anims.generateFrameNumbers('player', {start: 8, end: 11}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'moveUp',
-            frames: scene.anims.generateFrameNumbers('player', {start: 12, end: 15}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'idle',
-            frames: [{key: 'player', frame: 0}],
-        });
-    }
-
     update() {
+        if (this.velX || this.velY) {
+            this.play('roach_move', true);
+            const offset = PLAYER_ANIM_MOVE_MS_PER_FRAME_MAX - PLAYER_ANIM_MOVE_MS_PER_FRAME_MIN;
+            this.anims.msPerFrame = PLAYER_ANIM_MOVE_MS_PER_FRAME_MAX - offset * Math.sin(Math.PI/2 * this.accRate);
+        }
+        else this.play('roach_idle', true);
+        if (this.pointed && this.joyStick.force) this.angle = this.joyStick.angle + 90;
         this.setVelocity(this.velX, this.velY);
     }
 }
