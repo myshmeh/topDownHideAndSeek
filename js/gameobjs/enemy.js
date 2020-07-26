@@ -118,9 +118,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             }
             // move anim
             if (this.patrolSpeed > 0) {
-                this.body = 90;
+                this.angle = 180;
             } else {
-                this.angle = -90;
+                this.angle = 0;
             }
         } else if (this.patrolStyle === 'rotate') {
             this.rotateSightTriangle();
@@ -153,7 +153,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         // normarize vectors
         const xVectorNorm = xVector / vector;
         const yVectorNorm = yVector / vector;
-        const isEnabled = this.body.enable;
         this.angle = Math.atan2(yVectorNorm, xVectorNorm) * 180 / Math.PI + 90;
         this.setVelocity(xVectorNorm * this.chaseSpeed, yVectorNorm * this.chaseSpeed); // coefficient determines speed
     }

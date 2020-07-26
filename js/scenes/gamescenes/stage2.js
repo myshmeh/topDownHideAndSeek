@@ -10,8 +10,6 @@ class Stage2 extends Phaser.Scene {
     }
 
     createStatics() {
-        this.lights.enable().setAmbientColor(0xaaaaaa);
-
         const tileColNum = WIDTH / 32;
         const tileRowNum = HEIGHT / 32;
         for(let i = 0; i < tileColNum; i++) {
@@ -37,6 +35,7 @@ class Stage2 extends Phaser.Scene {
         this.powders.create(WIDTH * 0.8, HEIGHT * 0.2, 'powder');
         this.powders.create(WIDTH * 0.3, HEIGHT * 0.8, 'powder');
         this.powders.getChildren().forEach(powder => powder.name = 'powder');
+        this.powders.getChildren().forEach(powder => powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75));
 
         // goal
         this.goal = this.physics.add.staticImage(320, 635, 'door');
@@ -71,7 +70,7 @@ class Stage2 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'daddy_walk', 0, 'horizontal', 'triangle');
+        this.enemy = new Enemy(this, 240, 350, 'daddy', 0, 'horizontal', 'triangle');
         this.enemy.createCollisionMove();
         
         // overlap callbacks

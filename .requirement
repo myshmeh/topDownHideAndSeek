@@ -44,7 +44,6 @@ to do
     [ ] KOMUGIKO perfect
 [ ] make map scene - reffer to ATASHINCHI
 [ ] oekaki
-    [ ] mofify size of collision box
 [ ] improve UI
 [ ] triangle position
 --------------release line---------------
@@ -52,6 +51,7 @@ to do
 [ ] refactor
 
 doing
+
 
 done
 [v] create 1 stage
@@ -102,5 +102,8 @@ done
         [v] improved stage5
         - vertical enemy on the right side?
         - divide and conquer
+    [v] modify collision boxes
+        [v] fix collision box after stage3
+        [v] improve collision box of items
 [v] fix character size
 [v] adjust to smart phone

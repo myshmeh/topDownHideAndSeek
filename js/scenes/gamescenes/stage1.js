@@ -68,8 +68,8 @@ class Stage1 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, 140, 200, 'daddy_walk', 0, 'horizontal', 'triangle'),
-            new Enemy(this, 240, 450, 'daddy_walk', 0, 'horizontal', 'triangle')
+            new Enemy(this, 140, 200, 'daddy', 0, 'horizontal', 'triangle'),
+            new Enemy(this, 240, 450, 'daddy', 0, 'horizontal', 'triangle')
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);
@@ -79,6 +79,7 @@ class Stage1 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.key, this.obtainItem);
         this.physics.add.collider(this.player, this.goal, clearStage.bind(this, this, 'stage2', () => this.player.getItems().key));
 
+        // brightness related objects
         this.add.rectangle(0, ITEM_BAR_HEIGHT, WIDTH, HEIGHT, 0x111100, 0.25).setOrigin(0);
         this.add.circle(WIDTH * 0.25, HEIGHT * 0.33, 110, 0xffffcc, 0.15);
         this.add.circle(WIDTH * 0.75, HEIGHT * 0.33, 110, 0xffffcc, 0.15);

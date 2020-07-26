@@ -10,9 +10,15 @@ class Stage6 extends Phaser.Scene {
     }
 
     createStatics() {
-        this.add.image(0, ITEM_BAR_HEIGHT, 'floor').setOrigin(0);
-        this.obstacles = this.physics.add.staticGroup();
+        const tileColNum = WIDTH / 32;
+        const tileRowNum = HEIGHT / 32;
+        for(let i = 0; i < tileColNum; i++) {
+            for(let j = 0; j< tileRowNum; j++) {
+                let floor = this.add.image(i * 32, j * 32 + 48, 'wood_floor').setOrigin(0);
+            }
+        }
 
+        this.obstacles = this.physics.add.staticGroup();
         // outside borders
         this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0, 0).setScale(12, 0.01).refreshBody();
         this.obstacles.create(0, HEIGHT + BORDER_THICKNESS, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
@@ -24,9 +30,6 @@ class Stage6 extends Phaser.Scene {
         this.obstacles.create(WIDTH * 0.375, HEIGHT * 0.875, 'obstacle').setScale(2, 0.5).refreshBody();
         this.obstacles.create(WIDTH * 0.7, HEIGHT * 0.8, 'obstacle').setScale(2, 0.5).refreshBody();
         this.obstacles.create(WIDTH * 0.27, HEIGHT * 0.864, 'obstacle').setScale(0.5, 1).refreshBody();
-
-        // scatter sticky death drap
-        this.traps = this.physics.add.staticGroup();
 
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
@@ -49,12 +52,12 @@ class Stage6 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.7, 'enemy', 0, 'rotate', 'triangle', -Math.PI * 0.0075, 100, 235, 40, 0),
-            new Enemy(this, WIDTH * 0.35, HEIGHT * 0.225, 'enemy', 0, 'vertical', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.5, HEIGHT * 0.15, 'enemy', 0, 'vertical', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.075, 'enemy', 0, 'vertical', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.4, 'enemy', 0, 'horizontal', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.9, 'enemy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.7, 'daddy', 0, 'rotate', 'triangle', -Math.PI * 0.0075, 100, 235, 40, 0),
+            new Enemy(this, WIDTH * 0.35, HEIGHT * 0.225, 'daddy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.5, HEIGHT * 0.15, 'daddy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.1, 'daddy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.4, 'daddy', 0, 'horizontal', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.9, 'daddy', 0, 'vertical', 'triangle', 40),
         ];
         enemies.forEach(enemy => {
             enemy.createCollisionMove();

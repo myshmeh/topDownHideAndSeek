@@ -10,9 +10,15 @@ class Stage3 extends Phaser.Scene {
     }
 
     createStatics() {
-        this.add.image(0, ITEM_BAR_HEIGHT, 'floor').setOrigin(0);
-        this.obstacles = this.physics.add.staticGroup();
+        const tileColNum = WIDTH / 32;
+        const tileRowNum = HEIGHT / 32;
+        for(let i = 0; i < tileColNum; i++) {
+            for(let j = 0; j< tileRowNum; j++) {
+                let floor = this.add.image(i * 32, j * 32 + 48, 'wood_floor').setOrigin(0);
+            }
+        }
 
+        this.obstacles = this.physics.add.staticGroup();
         // outside borders
         this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0, 0).setScale(12, 0.01).refreshBody();
         this.obstacles.create(0, HEIGHT + BORDER_THICKNESS, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
@@ -23,6 +29,7 @@ class Stage3 extends Phaser.Scene {
         this.powders = this.physics.add.staticGroup();
         this.powders.create(WIDTH * 0.15, HEIGHT * 0.95, 'powder');
         this.powders.getChildren().forEach(powder => powder.name = 'powder');
+        this.powders.getChildren().forEach(powder => powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75));
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
@@ -36,6 +43,7 @@ class Stage3 extends Phaser.Scene {
         this.traps.create(WIDTH * 0.15, HEIGHT * 0.85, 'slime');
         this.traps.create(WIDTH * 0.5, HEIGHT * 0.8, 'slime');
         this.traps.create(WIDTH * 0.6, HEIGHT * 0.9, 'slime');
+        this.traps.getChildren().forEach(trap => trap.setSize(trap.body.width * 0.75, trap.body.height * 0.75));
 
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
@@ -57,7 +65,7 @@ class Stage3 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'enemy', 0, 'idle', 'circle', 0, 100);
+        this.enemy = new Enemy(this, 240, 350, 'daddy', 0, 'idle', 'circle', 0, 100);
         this.enemy.createCollisionMove();
         
         // overlap callbacks

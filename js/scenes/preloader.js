@@ -34,11 +34,13 @@ class Preloader extends Phaser.Scene {
         this.load.image('obstacle', 'img/obstacle.png');
         this.load.spritesheet('player', 'img/MantisMove.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('enemy', 'img/MaggotWalk.png', { frameWidth: 64, frameHeight: 64 });
+        // --------------------------followings are improved OEKAKI-------------------------------
         this.load.spritesheet('roach_idle', 'img/roach/roach_idle.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('roach_move', 'img/roach/roach_move.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('wood_floor', 'img/objects/wood_floor_isometric.png');
         this.load.image('stone_floor', 'img/objects/stone_floor.png');
-        this.load.spritesheet('daddy_walk', 'img/humans/daddy_walk.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('tatami_floor', 'img/objects/tatami.png');
+        this.load.spritesheet('daddy', 'img/humans/daddy_walk.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('daddy_run', 'img/humans/daddy_run.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('door', 'img/objects/door.png');
         this.load.image('door_light', 'img/objects/door_light.png');
@@ -64,7 +66,7 @@ class Preloader extends Phaser.Scene {
             frameRate: PLAYER_ANIM_MOVE_MS_PER_FRAME_MIN,
             repeat: -1
         });
-        const daddyWalkFrames = this.anims.generateFrameNumbers('daddy_walk');
+        const daddyWalkFrames = this.anims.generateFrameNumbers('daddy');
         const daddyRunFrames = this.anims.generateFrameNumbers('daddy_run');
         this.anims.create({
             key: 'daddy_walk',
@@ -83,6 +85,6 @@ class Preloader extends Phaser.Scene {
             frames: [{key: 'powdered_slime', frame: 0}],
         });
 
-        this.scene.start('stage1', {items: {key: 0, powder: 0}});
+        this.scene.start('stage1', {items: {key: 0, powder: 1}});
     }
 }
