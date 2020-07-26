@@ -10,7 +10,16 @@ class Stage2 extends Phaser.Scene {
     }
 
     createStatics() {
-        this.add.image(0, ITEM_BAR_HEIGHT, 'floor').setOrigin(0);
+        this.lights.enable().setAmbientColor(0xaaaaaa);
+
+        const tileColNum = WIDTH / 32;
+        const tileRowNum = HEIGHT / 32;
+        for(let i = 0; i < tileColNum; i++) {
+            for(let j = 0; j< tileRowNum; j++) {
+                let floor = this.add.image(i * 32, j * 32 + 48, 'wood_floor').setOrigin(0);
+            }
+        }
+        
         this.obstacles = this.physics.add.staticGroup();
 
         // inside obstacle
@@ -30,8 +39,21 @@ class Stage2 extends Phaser.Scene {
         this.powders.getChildren().forEach(powder => powder.name = 'powder');
 
         // goal
-        this.goal = this.physics.add.staticImage(320, 610, 'home');
-        this.goal.body.setSize(40, 40);
+        this.goal = this.physics.add.staticImage(320, 635, 'door');
+        this.goal.setScale(2).refreshBody();
+        this.goal.body.setSize(50, 50);
+        this.doorLight = this.physics.add.staticImage(320, 635, 'door_light');
+        this.doorLight.setScale(2).refreshBody();
+        this.doorLight.alpha = 0.6;
+        this.doorLight.tint = 0xffffcc;
+        this.tweens.add({
+            targets: this.doorLight,
+            alpha: 0.2,
+            repeat: -1,
+            duration: 2000,
+            yoyo: true,
+            ease: 'Quad.easeIn'
+        });
     }
 
     drawItems() {
@@ -49,13 +71,13 @@ class Stage2 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'enemy', 0, 'horizontal', 'triangle');
+        this.enemy = new Enemy(this, 240, 350, 'daddy_walk', 0, 'horizontal', 'triangle');
         this.enemy.createCollisionMove();
         
         // overlap callbacks
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.enemy, this.arrestPlayer);
-        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage3'));
+        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage3', () => true)); //debug this
 
     }
 

@@ -1,7 +1,7 @@
 'use strict';
 class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, items) {
-        super(scene, x, y, texture, frame);
+        super(scene, x, y, 'roach_idle', 0);
         // add to scene
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -17,8 +17,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             x: WIDTH * 0.5,
             y: HEIGHT * 0.9,
             radius: joyStickRadius,
-            base: scene.add.circle(0, 0, joyStickRadius, 0x888888),
-            thumb: scene.add.circle(0, 0, joyStickRadius * 0.5, 0xcccccc),
+            base: scene.add.circle(0, 0, joyStickRadius, 0xdddddd, 0.5),
+            thumb: scene.add.circle(0, 0, joyStickRadius * 0.4, 0xffffff, 0.65),
             forceMin: 0,
         };
         this.joyStick = scene.plugins.get('rexvirtualjoystickplugin').add(scene, config);
@@ -42,6 +42,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.velX = Math.cos(this.joyStick.angle * (Math.PI / 180)) * this.acc * this.accRate;
             this.velY = Math.sin(this.joyStick.angle * (Math.PI / 180)) * this.acc * this.accRate;
         });
+
+        this.body.setSize(16, 16);
+        this.setScale(1.2);
     }
 
     getItems() {

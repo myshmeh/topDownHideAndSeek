@@ -64,7 +64,7 @@ class Stage3 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.traps, this.onTrapped);
         this.physics.add.overlap(this.player, this.enemy, this.arrestPlayer);
-        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage4'));
+        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage4', () => true));
 
     }
 

@@ -36,7 +36,17 @@ class Preloader extends Phaser.Scene {
         this.load.spritesheet('enemy', 'img/MaggotWalk.png', { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet('roach_idle', 'img/roach/roach_idle.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('roach_move', 'img/roach/roach_move.png', {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet('wood_floor', 'img/objects/wood_floor.png', {frameWidth: 8, frameHeight: 32});
+        this.load.image('wood_floor', 'img/objects/wood_floor_isometric.png');
+        this.load.image('stone_floor', 'img/objects/stone_floor.png');
+        this.load.spritesheet('daddy_walk', 'img/humans/daddy_walk.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('daddy_run', 'img/humans/daddy_run.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('door', 'img/objects/door.png');
+        this.load.image('door_light', 'img/objects/door_light.png');
+        this.load.image('light_pole', 'img/objects/light_pole.png');
+        this.load.image('light_pole_down', 'img/objects/light_pole_down.png');
+        this.load.image('house', 'img/objects/house.png');
+        this.load.spritesheet('flowers', 'img/objects/flowers.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('inventory_chunk', 'img/objects/inventory_chunk.png', {frameWidth: 32, frameHeight: 32});
     }
 
     create() {
@@ -54,11 +64,25 @@ class Preloader extends Phaser.Scene {
             frameRate: PLAYER_ANIM_MOVE_MS_PER_FRAME_MIN,
             repeat: -1
         });
+        const daddyWalkFrames = this.anims.generateFrameNumbers('daddy_walk');
+        const daddyRunFrames = this.anims.generateFrameNumbers('daddy_run');
+        this.anims.create({
+            key: 'daddy_walk',
+            frames: daddyWalkFrames,
+            frameRate: 8,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'daddy_run',
+            frames: daddyRunFrames,
+            frameRate: 12,
+            repeat: -1
+        });
         this.anims.create({
             key: 'powdered_slime',
             frames: [{key: 'powdered_slime', frame: 0}],
         });
 
-        this.scene.start('stage1', {items: {key: 1, powder: 1}});
+        this.scene.start('stage1', {items: {key: 0, powder: 0}});
     }
 }

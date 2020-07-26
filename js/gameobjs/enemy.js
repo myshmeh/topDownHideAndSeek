@@ -7,7 +7,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.initAnims(scene);
 
         this.moveState = 'patrol';
         this.patrolStyle = patrolStyle;
@@ -30,7 +29,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
 
         this.setSize(this.body.width * 0.5, this.body.height * 0.5);
-        this.setOffset(this.body.width * 0.5, this.body.height); // to be deleted by centering the pixel art
+        this.setScale(1.75);
+
+        this.play('daddy_walk');
     }
 
     createTriangle(vertexX, vertexY, sightDistance, sightRange) {
@@ -49,37 +50,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.collider(this, this.scene.obstacles, () => {
             this.patrolSpeed *= -1;
             Phaser.Geom.Triangle.RotateAroundXY(this.sightShape, this.x, this.y, Math.PI);
-        });
-    }
-
-    initAnims(scene) {
-        scene.anims.create({
-            key: 'moveEnemyRight',
-            frames: scene.anims.generateFrameNumbers('enemy', {start: 8, end: 11}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'moveEnemyLeft',
-            frames: scene.anims.generateFrameNumbers('enemy', {start: 4, end: 7}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'moveEnemyUp',
-            frames: scene.anims.generateFrameNumbers('enemy', {start: 12, end: 15}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'moveEnemyDown',
-            frames: scene.anims.generateFrameNumbers('enemy', {start: 0, end: 3}),
-            frameRate: 10,
-            repeat: -1
-        });
-        scene.anims.create({
-            key: 'enemyIdle',
-            frames: [{key: 'enemy', frame: 0}],
         });
     }
 
@@ -134,9 +104,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             }
             // move anim
             if (this.patrolSpeed > 0) {
-                this.play('moveEnemyRight', true);
+                this.angle = 90;
             } else {
-                this.play('moveEnemyLeft', true);
+                this.angle = -90;
             }
         } else if (this.patrolStyle === 'vertical') {
             this.setVelocityY(this.patrolSpeed);
@@ -148,9 +118,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             }
             // move anim
             if (this.patrolSpeed > 0) {
-                this.play('moveEnemyDown', true);
+                this.body = 90;
             } else {
-                this.play('moveEnemyUp', true);
+                this.angle = -90;
             }
         } else if (this.patrolStyle === 'rotate') {
             this.rotateSightTriangle();
@@ -159,6 +129,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
         // when player is found
         if (this.isFound(player)) {
+            this.play('daddy_run');
             this.moveState = 'chase';
             this.scene.graphics.clear();
             return;
@@ -182,12 +153,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         // normarize vectors
         const xVectorNorm = xVector / vector;
         const yVectorNorm = yVector / vector;
-        const isEnabled = this.body.enable
-        if (xVectorNorm < 0 && isEnabled) {
-            this.play('moveEnemyLeft', true);
-        } else if (isEnabled) {
-            this.play('moveEnemyRight', true);
-        }
+        const isEnabled = this.body.enable;
+        this.angle = Math.atan2(yVectorNorm, xVectorNorm) * 180 / Math.PI + 90;
         this.setVelocity(xVectorNorm * this.chaseSpeed, yVectorNorm * this.chaseSpeed); // coefficient determines speed
     }
 

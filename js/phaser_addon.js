@@ -18,9 +18,7 @@ Phaser.Scene.prototype.addButton = function(x, y, key, callback, callbackContext
 Phaser.Scene.prototype.arrestPlayer = (player, enemy) => {
 	console.log(enemy);
 	console.log(player);
-	player.play('idle');
 	player.disableBody(true);
-	enemy.play('enemyIdle');
 	enemy.disableBody(true);
 	player.setTint(0xff0000);
 	console.log('Player was Arrested!');
@@ -47,8 +45,8 @@ Phaser.Scene.prototype.onTrapped = (player, trap) => {
 	}
 }
 
-const clearStage = (currentScene, nextScene) => {
-	if (!currentScene.player.getItems().key) return;
+const clearStage = (currentScene, nextScene, condition) => {
+	if (!condition()) return;
 	console.log('Congratullation!');
 	console.log(currentScene.player.getItems());
 	currentScene.scene.start(nextScene, { items: currentScene.player.getItems() });
