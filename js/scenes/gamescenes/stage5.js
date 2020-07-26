@@ -34,6 +34,9 @@ class Stage5 extends Phaser.Scene {
         this.powders.create(WIDTH * 0.5, HEIGHT * 0.85, 'powder');
         this.powders.getChildren().forEach(powder => powder.name = 'powder');
         this.powders.getChildren().forEach(powder => powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75));
+        // powders for only draw inventry
+        this.hiddenPowders = [];
+        for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder'));
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
@@ -47,11 +50,25 @@ class Stage5 extends Phaser.Scene {
     }
 
     drawItems() {
-        this.itemInfoText.text = `powder: ${this.player.getItems().powder}`;
+        this.hiddenPowders.forEach(hiddenPowder => hiddenPowder.setPosition(-WIDTH, -HEIGHT));
+        const currentPowder = this.player.getItems().powder;
+        if (currentPowder) {
+            for (let i = 0; i < currentPowder; i++) {
+                this.hiddenPowders[i].setPosition(i * 60 + 110, 5, 1);
+            }
+        }
     }
-
+    
     create() {
-        this.itemInfoText = this.add.text(16, 10, 'key: 0', { fontSize: '32px', fill: '#fff' });
+        // store item information
+        this.add.rectangle(0, 0, WIDTH, HEIGHT, 0x602b10).setOrigin(0);
+        for(let i=0; i<5; i++) this.add.image(i * 50 + 110, 5, 'inventory_chunk').setScale(1.2).setOrigin(0);
+        this.add.image(-20, -20, 'roach_idle', 0).setScale(4.5).setOrigin(0);
+        const thickness = 2;
+        this.add.rectangle(0, 0, WIDTH, thickness, 0x944a25).setOrigin(0);
+        this.add.rectangle(0, ITEM_BAR_HEIGHT - thickness, WIDTH, ITEM_BAR_HEIGHT, 0x944a25).setOrigin(0);
+        this.add.rectangle(0, 0, thickness, ITEM_BAR_HEIGHT, 0x944a25).setOrigin(0);
+        this.add.rectangle(WIDTH - thickness, 0, WIDTH, ITEM_BAR_HEIGHT, 0x944a25).setOrigin(0);
 
         this.createStatics();
 

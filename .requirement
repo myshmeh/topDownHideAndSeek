@@ -37,21 +37,17 @@ scenario
 backlog
 
 to do
-[ ] make intro scene
 [ ] make Duct Tape(ending) scene
     [ ] KOMUGIKO 0
     [ ] KOMUGIKO not enough
     [ ] KOMUGIKO perfect
 [ ] make map scene - reffer to ATASHINCHI
 [ ] oekaki
-[ ] improve UI
-[ ] triangle position
---------------release line---------------
-[ ] make sound effect
+------------------------
 [ ] refactor
 
 doing
-
+[ ] make intro scene
 
 done
 [v] create 1 stage
@@ -105,5 +101,9 @@ done
     [v] modify collision boxes
         [v] fix collision box after stage3
         [v] improve collision box of items
-[v] fix character size
+[v] improve UI
+    [v] apply inventry to all stage
+        [v] make inventry use item info
+    [v] triangle position
+    [v] fix character size
 [v] adjust to smart phone

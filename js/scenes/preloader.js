@@ -85,6 +85,6 @@ class Preloader extends Phaser.Scene {
             frames: [{key: 'powdered_slime', frame: 0}],
         });
 
-        this.scene.start('stage1', {items: {key: 0, powder: 1}});
+        this.scene.start('stage2', {items: {key: 0, powder: 1}});
     }
 }

@@ -59,6 +59,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.items.powder -= 1;
     }
 
+    useKey() {
+        if (!this.items.key) return false;
+        this.items.key -= 1;
+        return true;
+    }
+
     update() {
         if (this.velX || this.velY) {
             this.play('roach_move', true);

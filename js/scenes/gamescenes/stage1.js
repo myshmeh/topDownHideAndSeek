@@ -23,7 +23,11 @@ class Stage1 extends Phaser.Scene {
         this.key.name = 'key';
         this.key.angle = 45;
         this.key.body.setSize(16, 16);
-        
+        // item only for drawing in inventry
+        this.hiddenKey = this.add.image(WIDTH * -0.6, HEIGHT * -0.65, 'key').setScale(0.6);
+        this.hiddenKey.name = 'key';
+        this.hiddenKey.angle = 45;
+
         // outside border
         this.obstacles = this.physics.add.staticGroup();
         this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0, 0).setScale(12, 0.1).refreshBody();
@@ -44,12 +48,11 @@ class Stage1 extends Phaser.Scene {
     }
 
     drawItems() {
-        this.itemInfoText.text = `key: ${this.player.getItems().key}`;
+        if (this.player.getItems().key) this.hiddenKey.setPosition(126, 21, 1);
     }
 
     create() {
-        // draw item information
-        this.itemInfoText = this.add.text(16, 10, 'key: 0', { fontSize: '32px', fill: '#fff' });
+        // store item information
         this.add.rectangle(0, 0, WIDTH, HEIGHT, 0x602b10).setOrigin(0);
         for(let i=0; i<5; i++) this.add.image(i * 50 + 110, 5, 'inventory_chunk').setScale(1.2).setOrigin(0);
         this.add.image(-20, -20, 'roach_idle', 0).setScale(4.5).setOrigin(0);
@@ -58,12 +61,13 @@ class Stage1 extends Phaser.Scene {
         this.add.rectangle(0, ITEM_BAR_HEIGHT - thickness, WIDTH, ITEM_BAR_HEIGHT, 0x944a25).setOrigin(0);
         this.add.rectangle(0, 0, thickness, ITEM_BAR_HEIGHT, 0x944a25).setOrigin(0);
         this.add.rectangle(WIDTH - thickness, 0, WIDTH, ITEM_BAR_HEIGHT, 0x944a25).setOrigin(0);
-
+        
         // platforms
         this.createStatics();
         // player
         this.player = new Player(this, 70, 100, 'roach_idle', 0, { key: 0, powder: 0});
         this.physics.add.collider(this.player, this.obstacles);
+
 
         // enemy
         this.graphics = this.add.graphics();
@@ -77,7 +81,7 @@ class Stage1 extends Phaser.Scene {
         // player overlaps (overlap callbacks are in phaser_addon.js)
         this.physics.add.overlap(this.player, this.enemyGroup, this.arrestPlayer);
         this.physics.add.overlap(this.player, this.key, this.obtainItem);
-        this.physics.add.collider(this.player, this.goal, clearStage.bind(this, this, 'stage2', () => this.player.getItems().key));
+        this.physics.add.collider(this.player, this.goal, clearStage.bind(this, this, 'stage2', () => this.player.useKey()));
 
         // brightness related objects
         this.add.rectangle(0, ITEM_BAR_HEIGHT, WIDTH, HEIGHT, 0x111100, 0.25).setOrigin(0);
