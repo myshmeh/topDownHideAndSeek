@@ -20,8 +20,8 @@ game structure
 
 scenario
 - introduce: 
-    - the friend will be in trap at kitchen
-    - pheromone is emmited from friend
+    - the girl-friend will be in trap at kitchen
+    - pheromone is emmited from her
     - then player go there to help him
 - start: sneak into the home
 - process: pass through rooms on the way to the kitchen without being found
@@ -37,17 +37,21 @@ scenario
 backlog
 
 to do
+[ ] for UX reason, stage1 should be checkpoint
 [ ] make Duct Tape(ending) scene
     [ ] KOMUGIKO 0
     [ ] KOMUGIKO not enough
     [ ] KOMUGIKO perfect
 [ ] make map scene - reffer to ATASHINCHI
+[ ] modify difficulty - speed up?
 [ ] oekaki
 ------------------------
 [ ] refactor
 
 doing
 [ ] make intro scene
+    [v] write scenario text
+    [ ] draw picture and insert to opening1,2
 
 done
 [v] create 1 stage

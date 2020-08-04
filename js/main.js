@@ -9,14 +9,14 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: 0
-            , debug: true
+            // , debug: true
         }
     },
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [ Preloader, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, GameOver ]
+    scene: [ Preloader, Opening1, Opening2, Opening3, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, GameOver ]
 };
 
 const game = new Phaser.Game(config);
