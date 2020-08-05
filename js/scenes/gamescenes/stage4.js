@@ -98,5 +98,9 @@ class Stage4 extends Phaser.Scene {
         this.drawItems();
         this.player.update();
         this.enemyGroup.getChildren().forEach(enemy => enemy.update(this.player));
+        if (this.player.isDead() && !this.deadProcessed) {
+            this.deadProcessed = true;
+            this.restartStage();
+        }
     }
 }

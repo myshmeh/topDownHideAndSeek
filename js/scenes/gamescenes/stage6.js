@@ -86,7 +86,7 @@ class Stage6 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.traps, this.onTrapped);
         this.physics.add.overlap(this.player, this.enemyGroup, this.arrestPlayer);
-        this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'gameOver', () => true));
+        this.physics.add.overlap(this.player, this.goal, () => this.scene.start('gameOver'));
 
     }
 
@@ -95,5 +95,9 @@ class Stage6 extends Phaser.Scene {
         this.drawItems();
         this.player.update();
         this.enemyGroup.getChildren().forEach(enemy => enemy.update(this.player));
+        if (this.player.isDead() && !this.deadProcessed) {
+            this.deadProcessed = true;
+            this.restartStage();
+        }
     }
 }

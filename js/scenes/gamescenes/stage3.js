@@ -98,5 +98,9 @@ class Stage3 extends Phaser.Scene {
         this.drawItems();
         this.player.update();
         this.enemy.update(this.player);
+        if (this.player.isDead() && !this.deadProcessed) {
+            this.deadProcessed = true;
+            this.restartStage();
+        }
     }
 }

@@ -37,21 +37,24 @@ scenario
 backlog
 
 to do
-[ ] for UX reason, stage1 should be checkpoint
-[ ] make Duct Tape(ending) scene
-    [ ] KOMUGIKO 0
-    [ ] KOMUGIKO not enough
-    [ ] KOMUGIKO perfect
-[ ] make map scene - reffer to ATASHINCHI
 [ ] modify difficulty - speed up?
+[ ] tint items to indicate safety/danger
+[ ] adjust item UI position
 [ ] oekaki
+    [ ] food
+    [ ] trap
+    [ ] family members
+    [ ] roach dead face
+    [ ] house
+[ ] fix font issue
 ------------------------
 [ ] refactor
 
 doing
-[ ] make intro scene
-    [v] write scenario text
-    [ ] draw picture and insert to opening1,2
+[ ] make Duct Tape(ending) scene
+    [ ] KOMUGIKO 0
+    [ ] KOMUGIKO not enough
+    [ ] KOMUGIKO perfect
 
 done
 [v] create 1 stage
@@ -111,3 +114,10 @@ done
     [v] triangle position
     [v] fix character size
 [v] adjust to smart phone
+[v] make intro scene
+    [v] write scenario text
+    [v] draw picture and insert to opening1,2
+[v] dead animation
+    [v] directly transition to stage 1
+    [v] for UX reason, stage1 should be checkpoint
+[v] make map scene - reffer to ATASHINCHI

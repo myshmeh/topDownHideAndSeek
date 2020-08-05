@@ -18,7 +18,7 @@ class Preloader extends Phaser.Scene {
         this.plugins.get('rexwebfontloaderplugin').addToScene(this);
         const fontLoadConfig = {
             google: {
-                families: [FONTS.MONOTON, FONTS.CREEPSTER]
+                families: [FONTS.PRESS_START_2P, FONTS.RIGHTEOUS]
             }
         }
         this.load.rexWebFont(fontLoadConfig);
@@ -37,6 +37,7 @@ class Preloader extends Phaser.Scene {
         // --------------------------followings are improved OEKAKI-------------------------------
         this.load.spritesheet('roach_idle', 'img/roach/roach_idle.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('roach_move', 'img/roach/roach_move.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('fiona_animated_idle', 'img/roach/fiona_animated_idle.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('wood_floor', 'img/objects/wood_floor_isometric.png');
         this.load.image('stone_floor', 'img/objects/stone_floor.png');
         this.load.image('tatami_floor', 'img/objects/tatami.png');
@@ -49,6 +50,7 @@ class Preloader extends Phaser.Scene {
         this.load.image('house', 'img/objects/house.png');
         this.load.spritesheet('flowers', 'img/objects/flowers.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('inventory_chunk', 'img/objects/inventory_chunk.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('map', 'img/objects/map.jpg');
     }
 
     create() {
@@ -85,6 +87,6 @@ class Preloader extends Phaser.Scene {
             frames: [{key: 'powdered_slime', frame: 0}],
         });
 
-        this.scene.start('opening1', {items: {key: 0, powder: 1}});
+        this.scene.start('opening1', {items: {key: 0, powder: 0}});
     }
 }

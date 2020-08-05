@@ -75,4 +75,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.pointed && this.joyStick.force) this.angle = this.joyStick.angle + 90;
         this.setVelocity(this.velX, this.velY);
     }
+
+    isDead() {
+        return !this.body.enable;
+    }
 }

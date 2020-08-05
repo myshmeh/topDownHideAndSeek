@@ -6,8 +6,7 @@ class Opening3 extends Phaser.Scene {
     }
 
     create() {
-        const storyText = 'SAVE FIONA!!';
-        this.add.text(WIDTH * 0.5, HEIGHT * 0.4, storyText, {
+        this.add.text(WIDTH * 0.5, HEIGHT * 0.4, PLOTS[2], {
             fontFamily: FONTS.PRESS_START_2P,
             fontSize: '26px',
             color: '#fff',

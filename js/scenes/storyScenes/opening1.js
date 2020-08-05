@@ -6,8 +6,7 @@ class Opening1 extends Phaser.Scene {
     }
 
     create() {
-        const storyText = 'On that day, the rain was pretty heavy...\n\n\nFiona had no choice but to enter the place of evils.\n\n\n\nFor some reason, they served a food.';
-        this.add.text(WIDTH * 0.5, HEIGHT * 0.4, storyText, {
+        this.add.text(WIDTH * 0.5, HEIGHT * 0.4, PLOTS[0], {
             fontFamily: FONTS.PRESS_START_2P,
             fontSize: '16px',
             color: '#fff',
@@ -15,10 +14,15 @@ class Opening1 extends Phaser.Scene {
             wordWrap: { width: WIDTH, useAdvancedWrap: true }
         }).setOrigin(0.5, 0.5);
 
-        // insert picture of Fiona found food on trap
+        this.add.image(WIDTH * 0.3, HEIGHT * 0.7, 'fiona_animated_idle', 0).setScale(2).angle = 0;
+        this.add.image(WIDTH * 0.7, HEIGHT * 0.7, 'slime', 0).setScale(2);
+        this.add.image(WIDTH * 0.7, HEIGHT * 0.7, 'powder', 0);
+
+        const rect = this.add.rectangle(0, 0, WIDTH, HEIGHT, 0, 1).setOrigin(0);
+        this.tweens.add({ targets: rect, duration: 500, alpha: 0 });
 
         this.input.on('pointerup', () => {
-            this.scene.start('opening2');
+            this.tweens.add({ targets: rect, duration: 500, alpha: 1, onComplete:  () => this.scene.start('opening2') });
         });
     }
 }

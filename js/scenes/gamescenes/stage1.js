@@ -45,6 +45,8 @@ class Stage1 extends Phaser.Scene {
         flower2.body.setSize(32 * 2.25, 16 * 3);
         this.obstacles.add(flower);
         this.obstacles.add(flower2);
+
+        this.deadProcessed = false;
     }
 
     drawItems() {
@@ -111,5 +113,9 @@ class Stage1 extends Phaser.Scene {
         this.drawItems();
         this.player.update();
         this.enemyGroup.getChildren().forEach(enemy => enemy.update(this.player));
+        if (this.player.isDead() && !this.deadProcessed) {
+            this.deadProcessed = true;
+            this.restartStage();
+        }
     }
 }

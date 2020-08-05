@@ -45,9 +45,16 @@ Phaser.Scene.prototype.onTrapped = (player, trap) => {
 	}
 }
 
+Phaser.Scene.prototype.restartStage = function() {
+	this.add.text(WIDTH * 0.5, HEIGHT * 0.5, 'YOU\'RE DEAD', {fontSize: '42px'}).setOrigin(0.5);
+	const rect = this.add.rectangle(0, 0, WIDTH, HEIGHT, 0x000000).setOrigin(0).setAlpha(0);
+    this.tweens.add({ targets: rect, duration: 1000, alpha: 1, delay: 500 });
+	this.time.delayedCall(2000, () => this.scene.start('stage1'));
+}
+
 const clearStage = (currentScene, nextScene, condition) => {
 	if (!condition()) return;
 	console.log('Congratullation!');
 	console.log(currentScene.player.getItems());
-	currentScene.scene.start(nextScene, { items: currentScene.player.getItems() });
+	currentScene.scene.start('map', { stageName: nextScene, stageProps: currentScene.player.getItems() });
 };
