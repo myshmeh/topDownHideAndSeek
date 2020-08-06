@@ -37,10 +37,9 @@ scenario
 backlog
 
 to do
-[ ] modify difficulty - speed up?
 [ ] tint items to indicate safety/danger
-[ ] adjust item UI position
 [ ] oekaki
+    [ ] ending picture
     [ ] food
     [ ] trap
     [ ] family members
@@ -51,10 +50,7 @@ to do
 [ ] refactor
 
 doing
-[ ] make Duct Tape(ending) scene
-    [ ] KOMUGIKO 0
-    [ ] KOMUGIKO not enough
-    [ ] KOMUGIKO perfect
+[ ] modify difficulty - speed up?
 
 done
 [v] create 1 stage
@@ -111,6 +107,7 @@ done
 [v] improve UI
     [v] apply inventry to all stage
         [v] make inventry use item info
+    [v] adjust item UI position
     [v] triangle position
     [v] fix character size
 [v] adjust to smart phone
@@ -121,3 +118,17 @@ done
     [v] directly transition to stage 1
     [v] for UX reason, stage1 should be checkpoint
 [v] make map scene - reffer to ATASHINCHI
+
+[v] make ending scene
+    [v] define to be written
+        1 roach meets Fiona! she looks trapped!
+        2 he found that powders could work to rescue her from trap, try to rescue...
+            3 but he has no powders! he can do nothing...
+                4 he has no choice but to leave Fiona. Fiona dies but you live...
+            3 UH-OH... Not enough powders. now he is caught too.
+                4 but they got together. R.I.P...
+            3 his powders work very well! Fiona and him got out of this evil place!
+                4 Congratulation!! they lived happliy ever after... 
+    [v] KOMUGIKO 0
+    [v] KOMUGIKO not enough
+    [v] KOMUGIKO perfect

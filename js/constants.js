@@ -19,6 +19,21 @@ const PLOTS = [
     'SAVE FIONA!!',
 ];
 
+const ENDING_PLOTS = [
+    'You meets Fiona!\n\n\nShe looks trapped!',
+    'You found that powders could work to rescue her from trap,\n\n\ntry to rescue...',
+    [
+        'But you have no powders!\n\n\nYou can do nothing...',
+        'UH-OH...\n\n\nNot enough powders.\n\n\nNow you are caught too.',
+        'Your powders work very well!\n\n\nFiona and you got out of this evil place!'
+    ],
+    [
+        'You have no choice but to leave Fiona.\n\n\nFiona dies but you live...',
+        'But they got together.\n\n\nR.I.P...',
+        'Congratulation!!\n\n\nThey lived happliy ever after...'
+    ]
+];
+
 const ROACH_POS_ON_MAP = {
     stage2: {x: WIDTH * 0.75, y: HEIGHT * 0.2},
     stage3: {x: WIDTH * 0.75, y: HEIGHT * 0.5},

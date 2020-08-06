@@ -16,7 +16,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [ Preloader, Opening1, Opening2, Opening3, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, GameOver, Map ]
+    scene: [ Preloader, Opening1, Opening2, Opening3, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, GameOver, Map, Ending1, Ending2, Ending3, Ending4]
 };
 
 const game = new Phaser.Game(config);
