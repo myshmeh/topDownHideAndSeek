@@ -5,7 +5,6 @@ const ITEM_BAR_HEIGHT = 50;
 
 const FONTS = {
     PRESS_START_2P: '"Press Start 2P"',
-    RIGHTEOUS: 'Righteous',
 };
 Object.freeze(FONTS);
 

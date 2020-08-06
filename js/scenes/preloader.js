@@ -18,7 +18,7 @@ class Preloader extends Phaser.Scene {
         this.plugins.get('rexwebfontloaderplugin').addToScene(this);
         const fontLoadConfig = {
             google: {
-                families: [FONTS.PRESS_START_2P, FONTS.RIGHTEOUS]
+                families: [FONTS.PRESS_START_2P.split('"')[1]]
             }
         }
         this.load.rexWebFont(fontLoadConfig);
@@ -87,6 +87,6 @@ class Preloader extends Phaser.Scene {
             frames: [{key: 'powdered_slime', frame: 0}],
         });
 
-        this.scene.start('stage6', {items: {key: 0, powder: 0}});
+        this.scene.start('opening1', {items: {key: 0, powder: 0}});
     }
 }
