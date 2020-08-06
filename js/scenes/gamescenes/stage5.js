@@ -36,7 +36,7 @@ class Stage5 extends Phaser.Scene {
         this.powders.getChildren().forEach(powder => powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75));
         // powders for only draw inventry
         this.hiddenPowders = [];
-        for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder'));
+        for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
@@ -54,7 +54,7 @@ class Stage5 extends Phaser.Scene {
         const currentPowder = this.player.getItems().powder;
         if (currentPowder) {
             for (let i = 0; i < currentPowder; i++) {
-                this.hiddenPowders[i].setPosition(i * 60 + 110, 5, 1);
+                this.hiddenPowders[i].setPosition(i * 50 + 129, 25, 1);
             }
         }
     }

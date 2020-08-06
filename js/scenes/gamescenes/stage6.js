@@ -33,7 +33,7 @@ class Stage6 extends Phaser.Scene {
 
         // powders for only draw inventry
         this.hiddenPowders = [];
-        for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder'));
+        for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
 
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
@@ -45,7 +45,7 @@ class Stage6 extends Phaser.Scene {
         const currentPowder = this.player.getItems().powder;
         if (currentPowder) {
             for (let i = 0; i < currentPowder; i++) {
-                this.hiddenPowders[i].setPosition(i * 60 + 110, 5, 1);
+                this.hiddenPowders[i].setPosition(i * 50 + 129, 25, 1);
             }
         }
     }
@@ -86,7 +86,7 @@ class Stage6 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.traps, this.onTrapped);
         this.physics.add.overlap(this.player, this.enemyGroup, this.arrestPlayer);
-        this.physics.add.overlap(this.player, this.goal, () => this.scene.start('gameOver'));
+        this.physics.add.overlap(this.player, this.goal, () => this.scene.start('ending1', { items: this.player.getItems() }));
 
     }
 

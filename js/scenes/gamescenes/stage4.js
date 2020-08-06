@@ -40,7 +40,7 @@ class Stage4 extends Phaser.Scene {
 
         // powders for only draw inventry
         this.hiddenPowders = [];
-        for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder'));
+        for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
         
         // goal
         this.goal = this.physics.add.staticImage(320, 610, 'home');
@@ -52,7 +52,7 @@ class Stage4 extends Phaser.Scene {
         const currentPowder = this.player.getItems().powder;
         if (currentPowder) {
             for (let i = 0; i < currentPowder; i++) {
-                this.hiddenPowders[i].setPosition(i * 60 + 110, 5, 1);
+                this.hiddenPowders[i].setPosition(i * 50 + 129, 25, 1);
             }
         }
     }
