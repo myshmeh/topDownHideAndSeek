@@ -32,8 +32,11 @@ class Stage5 extends Phaser.Scene {
         this.powders.create(WIDTH * 0.15, HEIGHT * 0.95, 'powder');
         this.powders.create(WIDTH * 0.3, HEIGHT * 0.6, 'powder');
         this.powders.create(WIDTH * 0.5, HEIGHT * 0.85, 'powder');
-        this.powders.getChildren().forEach(powder => powder.name = 'powder');
-        this.powders.getChildren().forEach(powder => powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75));
+        this.powders.getChildren().forEach(powder => {
+            powder.name = 'powder';
+            powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75);
+            this.tweens.add({ targets: powder, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
+        });
         // powders for only draw inventry
         this.hiddenPowders = [];
         for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
@@ -80,8 +83,8 @@ class Stage5 extends Phaser.Scene {
         this.graphics = this.add.graphics();
         const enemies = [
             new Enemy(this, WIDTH * 0.4, HEIGHT * 0.8, 'daddy', 0, 'horizontal', 'triangle', 70),
-            new Enemy(this, WIDTH * 0.4, HEIGHT * 0.4, 'daddy', 0, 'idle', 'circle', 0, 100, 0, 0, 100),
-            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.55, 'daddy', 0, 'rotate', 'triangle', Math.PI * 0.0075, 100, 235, 40, 0)
+            new Enemy(this, WIDTH * 0.4, HEIGHT * 0.4, 'daddy', 0, 'idle', 'circle', 0, 150, 0, 0, 100),
+            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.55, 'daddy', 0, 'rotate', 'triangle', Math.PI * 0.0075, 200, 235, 40, 0)
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);

@@ -28,15 +28,17 @@ class Stage3 extends Phaser.Scene {
         // scatter powder
         this.powders = this.physics.add.staticGroup();
         this.powders.create(WIDTH * 0.15, HEIGHT * 0.95, 'powder');
-        this.powders.getChildren().forEach(powder => powder.name = 'powder');
-        this.powders.getChildren().forEach(powder => powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75));
+        this.powders.getChildren().forEach(powder => {
+            powder.name = 'powder';
+            powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75);
+            this.tweens.add({ targets: powder, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
+        });
         // powders for only draw inventry
         this.hiddenPowders = [];
         for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.6, HEIGHT * 0.2, 'slime');
         this.traps.create(WIDTH * 0.4, HEIGHT * 0.25, 'slime');
         this.traps.create(WIDTH * 0.3, HEIGHT * 0.35, 'slime');
         this.traps.create(WIDTH * 0.1, HEIGHT * 0.5, 'slime');
@@ -44,6 +46,7 @@ class Stage3 extends Phaser.Scene {
         this.traps.create(WIDTH * 0.075, HEIGHT * 0.7, 'slime');
         this.traps.create(WIDTH * 0.35, HEIGHT * 0.7, 'slime');
         this.traps.create(WIDTH * 0.15, HEIGHT * 0.85, 'slime');
+        this.traps.create(WIDTH * 0.325, HEIGHT * 0.925, 'slime');
         this.traps.create(WIDTH * 0.5, HEIGHT * 0.8, 'slime');
         this.traps.create(WIDTH * 0.6, HEIGHT * 0.9, 'slime');
         this.traps.getChildren().forEach(trap => trap.setSize(trap.body.width * 0.75, trap.body.height * 0.75));
@@ -82,7 +85,7 @@ class Stage3 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'daddy', 0, 'idle', 'circle', 0, 100);
+        this.enemy = new Enemy(this, 240, 350, 'daddy', 0, 'idle', 'circle', 0);
         this.enemy.createCollisionMove();
         
         // overlap callbacks

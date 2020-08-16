@@ -70,7 +70,7 @@ class Stage6 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.7, 'daddy', 0, 'rotate', 'triangle', -Math.PI * 0.0075, 100, 235, 40, 0),
+            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.7, 'daddy', 0, 'rotate', 'triangle', -Math.PI * 0.0075, 150, 235, 40, 0),
             new Enemy(this, WIDTH * 0.35, HEIGHT * 0.225, 'daddy', 0, 'vertical', 'triangle', 40),
             new Enemy(this, WIDTH * 0.5, HEIGHT * 0.15, 'daddy', 0, 'vertical', 'triangle', 40),
             new Enemy(this, WIDTH * 0.65, HEIGHT * 0.1, 'daddy', 0, 'vertical', 'triangle', 40),

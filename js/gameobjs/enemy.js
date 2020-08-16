@@ -1,7 +1,7 @@
 'use strict';
 class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, patrolStyle, sightShapeType, 
-        patrolSpeed=50, chaseSpeed=75, sightDistance=80, sightRange=40, sightRadius=150) {
+        patrolSpeed=50, chaseSpeed=150, sightDistance=80, sightRange=40, sightRadius=150) {
 
         super(scene, x, y, texture, frame);
         this.scene = scene;

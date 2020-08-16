@@ -28,14 +28,14 @@ class Stage4 extends Phaser.Scene {
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.6, HEIGHT * 0.15, 'slime');
-        this.traps.create(WIDTH * 0.7, HEIGHT * 0.225, 'slime');
-        this.traps.create(WIDTH * 0.8, HEIGHT * 0.3, 'slime');
-        this.traps.create(WIDTH * 0.825, HEIGHT * 0.375, 'slime');
-        this.traps.create(WIDTH * 0.2, HEIGHT * 0.65, 'slime');
-        this.traps.create(WIDTH * 0.25, HEIGHT * 0.725, 'slime');
-        this.traps.create(WIDTH * 0.275, HEIGHT * 0.825, 'slime');
-        this.traps.create(WIDTH * 0.325, HEIGHT * 0.925, 'slime');
+        this.traps.create(WIDTH * 0.55, HEIGHT * 0.15, 'slime');
+        this.traps.create(WIDTH * 0.65, HEIGHT * 0.225, 'slime');
+        this.traps.create(WIDTH * 0.75, HEIGHT * 0.3, 'slime');
+        this.traps.create(WIDTH * 0.7725, HEIGHT * 0.375, 'slime');
+        this.traps.create(WIDTH * 0.25, HEIGHT * 0.65, 'slime');
+        this.traps.create(WIDTH * 0.275, HEIGHT * 0.725, 'slime');
+        this.traps.create(WIDTH * 0.325, HEIGHT * 0.825, 'slime');
+        this.traps.create(WIDTH * 0.375, HEIGHT * 0.925, 'slime');
         this.traps.getChildren().forEach(trap => trap.setSize(trap.body.width * 0.75, trap.body.height * 0.75));
 
         // powders for only draw inventry
@@ -78,8 +78,8 @@ class Stage4 extends Phaser.Scene {
         this.graphics = this.add.graphics();
         const enemies = [
             new Enemy(this, WIDTH * 0.7, HEIGHT * 0.15, 'daddy', 0, 'horizontal', 'triangle', 25),
-            new Enemy(this, WIDTH * 0.1, HEIGHT * 0.4, 'daddy', 0, 'idle', 'circle', 0, 200),
-            new Enemy(this, WIDTH * 0.9, HEIGHT * 0.7, 'daddy', 0, 'idle', 'circle', 0, 200),
+            new Enemy(this, WIDTH * 0.125, HEIGHT * 0.4, 'daddy', 0, 'idle', 'circle', 0, 200),
+            new Enemy(this, WIDTH * 0.875, HEIGHT * 0.7, 'daddy', 0, 'idle', 'circle', 0, 200),
             new Enemy(this, WIDTH * 0.1, HEIGHT * 0.95, 'daddy', 0, 'horizontal', 'triangle', 25)
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());

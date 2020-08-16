@@ -37,7 +37,9 @@ scenario
 backlog
 
 to do
-[ ] tint items to indicate safety/danger
+[ ] release(=deployment)!!!
+
+doing
 [ ] oekaki
     [ ] ending picture
     [ ] food
@@ -45,11 +47,6 @@ to do
     [ ] family members
     [ ] roach dead face
     [ ] house
-------------------------
-[ ] refactor
-
-doing
-[ ] modify difficulty - speed up?
 
 done
 [v] create 1 stage
@@ -103,19 +100,24 @@ done
     [v] modify collision boxes
         [v] fix collision box after stage3
         [v] improve collision box of items
+    [v] modify difficulty - speed up?
+
 [v] improve UI
     [v] apply inventry to all stage
         [v] make inventry use item info
     [v] adjust item UI position
     [v] triangle position
     [v] fix character size
-[v] adjust to smart phone
-[v] make intro scene
-    [v] write scenario text
-    [v] draw picture and insert to opening1,2
-[v] dead animation
-    [v] directly transition to stage 1
-    [v] for UX reason, stage1 should be checkpoint
+    [v] adjust to smart phone
+    [v] make intro scene
+        [v] write scenario text
+        [v] draw picture and insert to opening1,2
+    [v] dead animation
+        [v] directly transition to stage 1
+        [v] for UX reason, stage1 should be checkpoint
+    [v] tint items to indicate safety/danger
+    [v] fix font issue
+
 [v] make map scene - reffer to ATASHINCHI
 
 [v] make ending scene
@@ -131,4 +133,3 @@ done
     [v] KOMUGIKO 0
     [v] KOMUGIKO not enough
     [v] KOMUGIKO perfect
-[v] fix font issue

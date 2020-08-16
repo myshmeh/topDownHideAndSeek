@@ -34,8 +34,11 @@ class Stage2 extends Phaser.Scene {
         this.powders = this.physics.add.staticGroup();
         this.powders.create(WIDTH * 0.8, HEIGHT * 0.2, 'powder');
         this.powders.create(WIDTH * 0.3, HEIGHT * 0.8, 'powder');
-        this.powders.getChildren().forEach(powder => powder.name = 'powder');
-        this.powders.getChildren().forEach(powder => powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75));
+        this.powders.getChildren().forEach(powder => {
+            powder.name = 'powder';
+            powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75);
+            this.tweens.add({ targets: powder, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
+        });
         // powders for only draw inventry
         this.hiddenPowders = [];
         for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));

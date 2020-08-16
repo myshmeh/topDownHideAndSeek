@@ -23,6 +23,10 @@ class Stage1 extends Phaser.Scene {
         this.key.name = 'key';
         this.key.angle = 45;
         this.key.body.setSize(16, 16);
+        this.tweens.add({ targets: this.key, duration: 700, alpha: 0, yoyo: true, repeat: -1, ease: 'Cubic.easeIn' });
+
+
+        
         // item only for drawing in inventry
         this.hiddenKey = this.add.image(WIDTH * -0.6, HEIGHT * -0.65, 'key').setScale(0.6);
         this.hiddenKey.name = 'key';
