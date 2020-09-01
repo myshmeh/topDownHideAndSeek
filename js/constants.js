@@ -16,7 +16,7 @@ const PLAYER_ANIM_MOVE_MS_PER_FRAME_MIN = 50;
 const PLAYER_ANIM_MOVE_MS_PER_FRAME_MAX = 180;
 
 const PLOTS = [
-    'Because of the heavy rain, Fiona was forced to enter the place of evils.\n\n\n\n\nFor some reason, they served a food.',
+    'That day, the rain was so heavy.Fiona was forced to enter the place of evils.\n\n\n\n\nFor some reason, they served a food.',
     'Well, it was a dirty trap.\n\n\nShe can\'t move at all!',
     'SAVE FIONA!',
 ];
