@@ -3,6 +3,9 @@ const HEIGHT = 667;
 const BORDER_THICKNESS = 16;
 const ITEM_BAR_HEIGHT = 50;
 
+const DEPTH_MID = 50;
+const DEPTH_MAX = 99;
+
 const FONTS = {
     PRESS_START_2P: '"Press Start 2P"',
 };
@@ -13,23 +16,23 @@ const PLAYER_ANIM_MOVE_MS_PER_FRAME_MIN = 50;
 const PLAYER_ANIM_MOVE_MS_PER_FRAME_MAX = 180;
 
 const PLOTS = [
-    'That day, the rain was pretty heavy...\n\n\nFiona had no choice but to enter the place of evils.\n\n\n\nFor some reason, they served a food.',
-    'Once she started eating it,\n\nshe realized it was a dirty trap.\n\n\nShe can\'t move at all!',
-    'SAVE FIONA!!',
+    'Because of the heavy rain, Fiona was forced to enter the place of evils.\n\n\n\n\nFor some reason, they served a food.',
+    'Well, it was a dirty trap.\n\n\nShe can\'t move at all!',
+    'SAVE FIONA!',
 ];
 
 const ENDING_PLOTS = [
-    'You meets Fiona!\n\n\nShe looks trapped!',
-    'You found that powders could work to rescue her from trap,\n\n\ntry to rescue...',
+    'You found Fiona.\n\nShe\'s struggled but still alive.',
+    'Let\'s use your powders to negate their trap.',
     [
-        'But you have no powders!\n\n\nYou can do nothing...',
-        'UH-OH...\n\n\nNot enough powders.\n\n\nNow you are caught too.',
-        'Your powders work very well!\n\n\nFiona and you got out of this evil place!'
+        '..No powders?\n\nThere\'s nothing you can do here..',
+        'UH-OH.. Not enough powders.\n\n\nNow you\'re caught too..',
+        'They worked!\n\n\nLet\'s get out of here!'
     ],
     [
-        'You have no choice but to leave Fiona.\n\n\nFiona dies but you live...',
-        'But they got together.\n\n\nR.I.P...',
-        'Congratulation!!\n\n\nThey lived happliy ever after...'
+        'FIONA DIES\n\nYOU LIVE',
+        'REST IN PEACE\n\nTOGETHER',
+        'HAPPY LIFE\n\nREGAINED'
     ]
 ];
 
@@ -37,14 +40,19 @@ const ROACH_POS_ON_MAP = {
     stage2: {x: WIDTH * 0.75, y: HEIGHT * 0.2},
     stage3: {x: WIDTH * 0.75, y: HEIGHT * 0.5},
     stage4: {x: WIDTH * 0.75, y: HEIGHT * 0.8},
-    stage5: {x: WIDTH * 0.35, y: HEIGHT * 0.8},
-    stage6: {x: WIDTH * 0.225, y: HEIGHT * 0.55},
+    stage5: {x: WIDTH * 0.3, y: HEIGHT * 0.8},
+    stage6: {x: WIDTH * 0.225, y: HEIGHT * 0.5},
+}
+
+const FIONA_POS_ON_MAP = {
+    x: WIDTH * 0.32,
+    y: HEIGHT * 0.58
 }
 
 const LABEL_POS_ON_MAP = {
-    stage2: {x: WIDTH * 0.775, y: HEIGHT * 0.1},
-    stage3: {x: WIDTH * 0.775, y: HEIGHT * 0.4},
+    stage2: {x: WIDTH * 0.775, y: HEIGHT * 0.05},
+    stage3: {x: WIDTH * 0.775, y: HEIGHT * 0.375},
     stage4: {x: WIDTH * 0.775, y: HEIGHT * 0.7},
-    stage5: {x: WIDTH * 0.35, y: HEIGHT * 0.7},
-    stage6: {x: WIDTH * 0.225, y: HEIGHT * 0.45},
+    stage5: {x: WIDTH * 0.3, y: HEIGHT * 0.7},
+    stage6: {x: WIDTH * 0.225, y: HEIGHT * 0.375},
 }

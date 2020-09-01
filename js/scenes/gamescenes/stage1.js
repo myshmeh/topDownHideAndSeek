@@ -39,13 +39,13 @@ class Stage1 extends Phaser.Scene {
         this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(1, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0, 0).setScale(1, 21).refreshBody();
 
-        this.goal = this.physics.add.staticImage(WIDTH * 0.75, HEIGHT * 0.9, 'house').setScale(4).refreshBody();
-        this.goal.angle = 90;
+        this.goal = this.physics.add.staticImage(WIDTH * 0.725, HEIGHT * 0.9, 'house').setScale(5).refreshBody().setDepth(DEPTH_MID);
+        this.goal.angle = 0;
         this.goal.body.setSize(32 * 4, 32 * 2.5);
 
-        const flower = this.physics.add.staticImage(WIDTH * 0.45, HEIGHT * 0.92, 'flowers', 1).setScale(2.5).refreshBody();
+        const flower = this.physics.add.staticImage(WIDTH * 0.35, HEIGHT * 0.88, 'flowers', 1).setScale(2.5).refreshBody();
         flower.body.setSize(32 * 2.25, 16 * 3);
-        const flower2 = this.physics.add.staticImage(WIDTH * 0.23, HEIGHT * 0.92, 'flowers', 0).setScale(2.5).refreshBody();
+        const flower2 = this.physics.add.staticImage(WIDTH * 0.13, HEIGHT * 0.88, 'flowers', 0).setScale(2.5).refreshBody();
         flower2.body.setSize(32 * 2.25, 16 * 3);
         this.obstacles.add(flower);
         this.obstacles.add(flower2);
@@ -78,8 +78,8 @@ class Stage1 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, 140, 200, 'daddy', 0, 'horizontal', 'triangle'),
-            new Enemy(this, 240, 450, 'daddy', 0, 'horizontal', 'triangle')
+            new Enemy(this, 140, 200, 'man', 0, 'horizontal', 'triangle'),
+            new Enemy(this, 240, 450, 'daughter', 0, 'horizontal', 'triangle')
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);

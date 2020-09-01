@@ -24,20 +24,39 @@ class Stage6 extends Phaser.Scene {
         this.obstacles.create(0, HEIGHT + BORDER_THICKNESS, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
         this.obstacles.create(0 - BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH + BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
-        // walls
-        this.obstacles.create(WIDTH * 0.35, HEIGHT * 0.3, 'obstacle').setScale(10, 0.5).refreshBody();
-        this.obstacles.create(WIDTH * 0.65, HEIGHT * 0.6, 'obstacle').setScale(10, 0.5).refreshBody();
-        this.obstacles.create(WIDTH * 0.375, HEIGHT * 0.875, 'obstacle').setScale(2, 0.5).refreshBody();
-        this.obstacles.create(WIDTH * 0.7, HEIGHT * 0.8, 'obstacle').setScale(2, 0.5).refreshBody();
-        this.obstacles.create(WIDTH * 0.27, HEIGHT * 0.864, 'obstacle').setScale(0.5, 1).refreshBody();
+        // inside borders
+        for (let i = 0; i < 10; i++) {
+            this.obstacles.create(32 * i, HEIGHT * 0.3, 'kitchen', 0);
+            this.obstacles.create(32 * i, HEIGHT * 0.3 + 32, 'kitchen', 0);
+            this.obstacles.create(WIDTH - 32 * i, HEIGHT * 0.6, 'kitchen', 0);
+            this.obstacles.create(WIDTH - 32 * i, HEIGHT * 0.6 + 32, 'kitchen', 0);
+        }
+        this.obstacles.create(WIDTH * 0.35, HEIGHT * 0.82, 'fridge').setScale(2.5, 1.5).refreshBody().setAngle(-180);
+        this.obstacles.create(WIDTH * 0.65, HEIGHT * 0.82, 'trash_bins', 0).setScale(1.35).refreshBody();
+        this.obstacles.create(WIDTH * 0.75, HEIGHT * 0.82, 'trash_bins', 1).setScale(1.35).refreshBody();
+        this.add.image(32 * 4, HEIGHT * 0.3, 'kitchen', 1);
+        this.add.image(32 * 5, HEIGHT * 0.3, 'kitchen', 2);
+        this.add.image(32 * 6, HEIGHT * 0.3, 'kitchen', 3);
+        this.add.image(32 * 4, HEIGHT * 0.3 + 32, 'kitchen', 4);
+        this.add.image(32 * 5, HEIGHT * 0.3 + 32, 'kitchen', 5);
+        this.add.image(32 * 6, HEIGHT * 0.3 + 32, 'kitchen', 6);
+        this.add.image(WIDTH - 32 * 6, HEIGHT * 0.6, 'kitchen', 7);
+        this.add.image(WIDTH - 32 * 5, HEIGHT * 0.6, 'kitchen', 8);
+        this.add.image(WIDTH - 32 * 4, HEIGHT * 0.6, 'kitchen', 9);
+        this.add.image(WIDTH - 32 * 6, HEIGHT * 0.6 + 32, 'kitchen', 10);
+        this.add.image(WIDTH - 32 * 5, HEIGHT * 0.6 + 32, 'kitchen', 11);
+        this.add.image(WIDTH - 32 * 4, HEIGHT * 0.6 + 32, 'kitchen', 12);
 
         // powders for only draw inventry
         this.hiddenPowders = [];
         for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
 
         // goal
-        this.goal = this.physics.add.staticImage(320, 610, 'home');
-        this.goal.body.setSize(40, 40);
+        const goalX = WIDTH * 0.82;
+        const goalY = HEIGHT * 0.96;
+        this.add.image(goalX, goalY, 'trap').setScale(2);
+        this.goal = this.physics.add.staticImage(goalX, goalY, 'fiona_idle', 10);
+        this.tweens.add({ targets: this.goal, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
     }
 
     drawItems() {
@@ -49,7 +68,7 @@ class Stage6 extends Phaser.Scene {
             }
         }
     }
-    
+
     create() {
         // store item information
         this.add.rectangle(0, 0, WIDTH, HEIGHT, 0x602b10).setOrigin(0);
@@ -70,12 +89,12 @@ class Stage6 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.7, 'daddy', 0, 'rotate', 'triangle', -Math.PI * 0.0075, 150, 235, 40, 0),
-            new Enemy(this, WIDTH * 0.35, HEIGHT * 0.225, 'daddy', 0, 'vertical', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.5, HEIGHT * 0.15, 'daddy', 0, 'vertical', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.1, 'daddy', 0, 'vertical', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.4, 'daddy', 0, 'horizontal', 'triangle', 40),
-            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.9, 'daddy', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.7, 'mom', 0, 'rotate', 'triangle', -Math.PI * 0.0075, 150, 235, 40, 0),
+            new Enemy(this, WIDTH * 0.35, HEIGHT * 0.225, 'son', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.5, HEIGHT * 0.15, 'daughter', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.1, 'son3', 0, 'vertical', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.65, HEIGHT * 0.4, 'grandma2', 0, 'horizontal', 'triangle', 40),
+            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.9, 'man', 0, 'vertical', 'triangle', 40),
         ];
         enemies.forEach(enemy => {
             enemy.createCollisionMove();

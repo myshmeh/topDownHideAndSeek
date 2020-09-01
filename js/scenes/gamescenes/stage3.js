@@ -24,10 +24,21 @@ class Stage3 extends Phaser.Scene {
         this.obstacles.create(0, HEIGHT + BORDER_THICKNESS, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
         this.obstacles.create(0 - BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH + BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
+        // inside borders
+        this.obstacles.create(WIDTH * 0.535, HEIGHT * 0.17, 'desks', 0).setScale(2.5).refreshBody().setDepth(DEPTH_MID).body.setSize(95, 75);
+        this.obstacles.create(WIDTH * 0.475, HEIGHT * 0.91, 'desks', 1).setScale(2.5).refreshBody().setAngle(180).setDepth(DEPTH_MID).body.setSize(95, 75);
+        this.obstacles.create(WIDTH * 0.85, HEIGHT * 0.2, 'bed', 0).setScale(4).refreshBody().body.setSize(80, 120);
+        this.obstacles.create(WIDTH * 0.15, HEIGHT * 0.875, 'bed', 0).setScale(4).refreshBody().setAngle(180).setDepth(DEPTH_MID).body.setSize(80, 120);
+        this.obstacles.create(WIDTH * 0.08, HEIGHT * 0.39, 'shelf', 0).setScale(2).refreshBody().setAngle(-90).setDepth(DEPTH_MID).body.setSize(64, 44);
+        this.obstacles.create(WIDTH * 0.08, HEIGHT * 0.47, 'shelf_w_flower', 0).setScale(2).refreshBody().setAngle(-90).setDepth(DEPTH_MID).body.setSize(64, 44);
+        this.obstacles.create(WIDTH * 0.08, HEIGHT * 0.55, 'shelf', 0).setScale(2).refreshBody().setAngle(-90).setDepth(DEPTH_MID).body.setSize(64, 44);
+
+        this.add.image(WIDTH * 0.65, HEIGHT * 0.5, 'carpet2').setScale(5);
+        this.obstacles.create(WIDTH * 0.7, HEIGHT * 0.45, 'carpet2').setScale(2).refreshBody().setTintFill(0x855f3e).body.setSize(48, 48);
 
         // scatter powder
         this.powders = this.physics.add.staticGroup();
-        this.powders.create(WIDTH * 0.15, HEIGHT * 0.95, 'powder');
+        this.powders.create(WIDTH * 0.1, HEIGHT * 0.98, 'powder');
         this.powders.getChildren().forEach(powder => {
             powder.name = 'powder';
             powder.setSize(powder.body.width * 0.75, powder.body.height * 0.75);
@@ -39,21 +50,16 @@ class Stage3 extends Phaser.Scene {
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.4, HEIGHT * 0.25, 'slime');
-        this.traps.create(WIDTH * 0.3, HEIGHT * 0.35, 'slime');
-        this.traps.create(WIDTH * 0.1, HEIGHT * 0.5, 'slime');
-        this.traps.create(WIDTH * 0.25, HEIGHT * 0.525, 'slime');
-        this.traps.create(WIDTH * 0.075, HEIGHT * 0.7, 'slime');
-        this.traps.create(WIDTH * 0.35, HEIGHT * 0.7, 'slime');
-        this.traps.create(WIDTH * 0.15, HEIGHT * 0.85, 'slime');
-        this.traps.create(WIDTH * 0.325, HEIGHT * 0.925, 'slime');
-        this.traps.create(WIDTH * 0.5, HEIGHT * 0.8, 'slime');
-        this.traps.create(WIDTH * 0.6, HEIGHT * 0.9, 'slime');
+        this.traps.create(WIDTH * 0.3, HEIGHT * 0.35, 'trap');
+        this.traps.create(WIDTH * 0.2, HEIGHT * 0.525, 'trap');
+        this.traps.create(WIDTH * 0.352, HEIGHT * 0.75, 'trap');
+        this.traps.create(WIDTH * 0.5, HEIGHT * 0.81, 'trap');
         this.traps.getChildren().forEach(trap => trap.setSize(trap.body.width * 0.75, trap.body.height * 0.75));
 
         // goal
-        this.goal = this.physics.add.staticImage(320, 610, 'home');
-        this.goal.body.setSize(40, 40);
+        this.goal = this.physics.add.staticImage(WIDTH * 0.8, HEIGHT * 0.985, 'door').setScale(3).refreshBody().setOrigin(0.5, 0.9);
+        this.goal.body.setSize(84, 20);
+        this.tweens.add({ targets: this.goal, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
     }
 
     drawItems() {
@@ -85,7 +91,7 @@ class Stage3 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'daddy', 0, 'idle', 'circle', 0);
+        this.enemy = new Enemy(this, 240, 350, 'son2', 0, 'idle', 'circle', 0);
         this.enemy.createCollisionMove();
         
         // overlap callbacks

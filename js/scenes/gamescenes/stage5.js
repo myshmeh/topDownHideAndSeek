@@ -25,12 +25,14 @@ class Stage5 extends Phaser.Scene {
         this.obstacles.create(0 - BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         this.obstacles.create(WIDTH + BORDER_THICKNESS, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0.5, 0).setScale(1, 21).refreshBody();
         // inside obstacle
-        this.obstacles.create(WIDTH * 0.7, HEIGHT * 0.125, 'obstacle').setScale(1, 2).refreshBody();
+        this.obstacles.create(WIDTH * 0.725, HEIGHT * 0.13, 'shelf').setScale(2).refreshBody().body.setSize(42, 68);
+        this.obstacles.create(WIDTH * 0.5, HEIGHT * 0.67, 'table').setScale(4.5).refreshBody().setAngle(90).body.setSize(144, 110);
+        this.add.image(WIDTH * 0.5, HEIGHT * 0.35, 'carpet').setScale(5);
 
         // scatter powder
         this.powders = this.physics.add.staticGroup();
         this.powders.create(WIDTH * 0.15, HEIGHT * 0.95, 'powder');
-        this.powders.create(WIDTH * 0.3, HEIGHT * 0.6, 'powder');
+        this.powders.create(WIDTH * 0.27, HEIGHT * 0.58, 'powder');
         this.powders.create(WIDTH * 0.5, HEIGHT * 0.85, 'powder');
         this.powders.getChildren().forEach(powder => {
             powder.name = 'powder';
@@ -43,13 +45,14 @@ class Stage5 extends Phaser.Scene {
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.8, HEIGHT * 0.4, 'slime');
-        this.traps.create(WIDTH * 0.9, HEIGHT * 0.575, 'slime');
+        this.traps.create(WIDTH * 0.8, HEIGHT * 0.4, 'trap');
+        this.traps.create(WIDTH * 0.9, HEIGHT * 0.575, 'trap');
         this.traps.getChildren().forEach(trap => trap.setSize(trap.body.width * 0.75, trap.body.height * 0.75));
 
         // goal
-        this.goal = this.physics.add.staticImage(320, 610, 'home');
-        this.goal.body.setSize(40, 40);
+        this.goal = this.physics.add.staticImage(WIDTH * 0.8, HEIGHT * 0.985, 'door').setScale(3).refreshBody().setOrigin(0.5, 0.9);
+        this.goal.body.setSize(84, 20);
+        this.tweens.add({ targets: this.goal, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
     }
 
     drawItems() {
@@ -82,14 +85,20 @@ class Stage5 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, WIDTH * 0.4, HEIGHT * 0.8, 'daddy', 0, 'horizontal', 'triangle', 70),
+            new Enemy(this, WIDTH * 0.4, HEIGHT * 0.8, 'son', 0, 'horizontal', 'triangle', 70),
             new Enemy(this, WIDTH * 0.4, HEIGHT * 0.4, 'daddy', 0, 'idle', 'circle', 0, 150, 0, 0, 100),
-            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.55, 'daddy', 0, 'rotate', 'triangle', Math.PI * 0.0075, 200, 235, 40, 0)
+            new Enemy(this, WIDTH * 0.6, HEIGHT * 0.55, 'mom', 0, 'rotate', 'triangle', Math.PI * 0.0075, 200, 235, 40, 0)
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);
+
+        const tv = this.physics.add.staticSprite(WIDTH * 0.5, HEIGHT * 0.125, 'tv_anim', 0).setScale(3).refreshBody();
+        tv.setAngle(90);
+        tv.play('tv_idle');
+        tv.body.setSize(98, 38);
         
         // overlap callbacks
+        this.physics.add.collider(this.player, tv);
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.traps, this.onTrapped);
         this.physics.add.overlap(this.player, this.enemyGroup, this.arrestPlayer);

@@ -28,14 +28,14 @@ class Stage4 extends Phaser.Scene {
 
         // scatter sticky death drap
         this.traps = this.physics.add.staticGroup();
-        this.traps.create(WIDTH * 0.55, HEIGHT * 0.15, 'slime');
-        this.traps.create(WIDTH * 0.65, HEIGHT * 0.225, 'slime');
-        this.traps.create(WIDTH * 0.75, HEIGHT * 0.3, 'slime');
-        this.traps.create(WIDTH * 0.7725, HEIGHT * 0.375, 'slime');
-        this.traps.create(WIDTH * 0.25, HEIGHT * 0.65, 'slime');
-        this.traps.create(WIDTH * 0.275, HEIGHT * 0.725, 'slime');
-        this.traps.create(WIDTH * 0.325, HEIGHT * 0.825, 'slime');
-        this.traps.create(WIDTH * 0.375, HEIGHT * 0.925, 'slime');
+        this.traps.create(WIDTH * 0.55, HEIGHT * 0.15, 'trap');
+        this.traps.create(WIDTH * 0.65, HEIGHT * 0.225, 'trap');
+        this.traps.create(WIDTH * 0.75, HEIGHT * 0.3, 'trap');
+        this.traps.create(WIDTH * 0.7725, HEIGHT * 0.375, 'trap');
+        this.traps.create(WIDTH * 0.25, HEIGHT * 0.65, 'trap');
+        this.traps.create(WIDTH * 0.275, HEIGHT * 0.725, 'trap');
+        this.traps.create(WIDTH * 0.325, HEIGHT * 0.825, 'trap');
+        this.traps.create(WIDTH * 0.375, HEIGHT * 0.925, 'trap');
         this.traps.getChildren().forEach(trap => trap.setSize(trap.body.width * 0.75, trap.body.height * 0.75));
 
         // powders for only draw inventry
@@ -43,8 +43,9 @@ class Stage4 extends Phaser.Scene {
         for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
         
         // goal
-        this.goal = this.physics.add.staticImage(320, 610, 'home');
-        this.goal.body.setSize(40, 40);
+        this.goal = this.physics.add.staticImage(WIDTH * 0.8, HEIGHT * 0.985, 'door').setScale(3).refreshBody().setOrigin(0.5, 0.9);
+        this.goal.body.setSize(84, 20);
+        this.tweens.add({ targets: this.goal, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
     }
 
     drawItems() {
@@ -77,10 +78,10 @@ class Stage4 extends Phaser.Scene {
         // enemy
         this.graphics = this.add.graphics();
         const enemies = [
-            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.15, 'daddy', 0, 'horizontal', 'triangle', 25),
-            new Enemy(this, WIDTH * 0.125, HEIGHT * 0.4, 'daddy', 0, 'idle', 'circle', 0, 200),
-            new Enemy(this, WIDTH * 0.875, HEIGHT * 0.7, 'daddy', 0, 'idle', 'circle', 0, 200),
-            new Enemy(this, WIDTH * 0.1, HEIGHT * 0.95, 'daddy', 0, 'horizontal', 'triangle', 25)
+            new Enemy(this, WIDTH * 0.7, HEIGHT * 0.15, 'daughter', 0, 'horizontal', 'triangle', 25),
+            new Enemy(this, WIDTH * 0.125, HEIGHT * 0.4, 'grandpa', 0, 'idle', 'circle', 0, 200),
+            new Enemy(this, WIDTH * 0.875, HEIGHT * 0.7, 'grandma', 0, 'idle', 'circle', 0, 200),
+            new Enemy(this, WIDTH * 0.1, HEIGHT * 0.95, 'son', 0, 'horizontal', 'triangle', 25)
         ];
         enemies.forEach(enemy => enemy.createCollisionMove());
         this.enemyGroup = this.physics.add.group(enemies);

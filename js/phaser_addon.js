@@ -39,17 +39,17 @@ Phaser.Scene.prototype.onTrapped = (player, trap) => {
 		console.log('player died...');
 	} else {
 		player.usePowder();
-		trap.play('powdered_slime');// powder on trap
 		trap.disableBody(true);
+		trap.play('trap_powdered');
 		console.log('player used powder to escape from trap!!');
 	}
 }
 
 Phaser.Scene.prototype.restartStage = function() {
-	this.add.text(WIDTH * 0.5, HEIGHT * 0.5, 'YOU\'RE DEAD', {fontSize: '32px', fontFamily: FONTS.PRESS_START_2P }).setOrigin(0.5);
-	const rect = this.add.rectangle(0, 0, WIDTH, HEIGHT, 0x000000).setOrigin(0).setAlpha(0);
-    this.tweens.add({ targets: rect, duration: 1000, alpha: 1, delay: 500 });
-	this.time.delayedCall(2000, () => this.scene.start('stage1'));
+	this.time.delayedCall(750, () => this.add.text(WIDTH * 0.5, HEIGHT * 0.5, 'OOPS..', {fontSize: '32px', fontFamily: FONTS.PRESS_START_2P }).setOrigin(0.5));
+	const rect = this.add.rectangle(0, 0, WIDTH, HEIGHT, 0x000000).setOrigin(0).setAlpha(0).setDepth(DEPTH_MAX);
+    this.tweens.add({ targets: rect, duration: 1000, alpha: 1, delay: 1000 });
+	this.time.delayedCall(3000, () => this.scene.start('stage1'));
 }
 
 const clearStage = (currentScene, nextScene, condition) => {

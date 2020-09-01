@@ -21,9 +21,14 @@ class Stage2 extends Phaser.Scene {
         this.obstacles = this.physics.add.staticGroup();
 
         // inside obstacle
-        this.obstacles.create(300, 220, 'obstacle').setScale(2).refreshBody();
-        this.obstacles.create(100, 350, 'obstacle').setScale(2).refreshBody();
-        this.obstacles.create(250, 500, 'obstacle').setScale(2).refreshBody();
+        const bed = this.obstacles.create(250, 220, 'bed').setScale(4).refreshBody();
+        bed.angle = 90;
+        bed.body.setSize(120, 80);
+        const bed2 = this.obstacles.create(250, 500, 'bed').setScale(4).refreshBody();
+        bed2.angle = 90;
+        bed2.body.setSize(120, 80);
+        const tv = this.obstacles.create(100, 350, 'tv').setScale(3).refreshBody();
+        tv.body.setSize(38, 98);
         // outside borders
         this.obstacles.create(0, ITEM_BAR_HEIGHT, 'obstacle').setOrigin(0, 0).setScale(12, 0.01).refreshBody();
         this.obstacles.create(0, HEIGHT + BORDER_THICKNESS, 'obstacle').setOrigin(0, 0.5).setScale(12, 1).refreshBody();
@@ -44,21 +49,9 @@ class Stage2 extends Phaser.Scene {
         for (let i = 0; i<5; i++) this.hiddenPowders.push(this.add.image(-WIDTH, -HEIGHT, 'powder').setScale(0.7));
 
         // goal
-        this.goal = this.physics.add.staticImage(320, 635, 'door');
-        this.goal.setScale(2).refreshBody();
-        this.goal.body.setSize(50, 50);
-        this.doorLight = this.physics.add.staticImage(320, 635, 'door_light');
-        this.doorLight.setScale(2).refreshBody();
-        this.doorLight.alpha = 0.6;
-        this.doorLight.tint = 0xffffcc;
-        this.tweens.add({
-            targets: this.doorLight,
-            alpha: 0.2,
-            repeat: -1,
-            duration: 2000,
-            yoyo: true,
-            ease: 'Quad.easeIn'
-        });
+        this.goal = this.physics.add.staticImage(WIDTH * 0.8, HEIGHT * 0.985, 'door').setScale(3).refreshBody().setOrigin(0.5, 0.9);
+        this.goal.body.setSize(84, 20);
+        this.tweens.add({ targets: this.goal, duration: 700, alpha: 0.5, yoyo: true, repeat: -1, ease: 'Cubic.easeIn', delay: Math.random() * 500});
     }
 
     drawItems() {
@@ -90,10 +83,15 @@ class Stage2 extends Phaser.Scene {
 
         // enemy
         this.graphics = this.add.graphics();
-        this.enemy = new Enemy(this, 240, 350, 'daddy', 0, 'horizontal', 'triangle');
+        this.enemy = new Enemy(this, 240, 350, 'son', 0, 'horizontal', 'triangle');
         this.enemy.createCollisionMove();
+
+        const tv = this.physics.add.staticSprite(100, 350, 'tv_anim', 0).setScale(3).refreshBody();
+        tv.body.setSize(38, 98);
+        tv.play('tv_idle');
         
         // overlap callbacks
+        this.physics.add.collider(this.player, tv);
         this.physics.add.overlap(this.player, this.powders, this.obtainItem);
         this.physics.add.overlap(this.player, this.enemy, this.arrestPlayer);
         this.physics.add.overlap(this.player, this.goal, clearStage.bind(this, this, 'stage3', () => true)); //debug this

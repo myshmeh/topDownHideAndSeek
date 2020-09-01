@@ -6,7 +6,7 @@ class Opening3 extends Phaser.Scene {
     }
 
     create() {
-        this.add.text(WIDTH * 0.5, HEIGHT * 0.4, PLOTS[2], {
+        this.add.text(WIDTH * 0.5, HEIGHT * 0.4, PLOTS[2].toUpperCase(), {
             fontFamily: FONTS.PRESS_START_2P,
             fontSize: '26px',
             color: '#fff',

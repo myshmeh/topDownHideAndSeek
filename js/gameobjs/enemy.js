@@ -12,6 +12,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.patrolStyle = patrolStyle;
         this.patrolSpeed = patrolSpeed;
         this.chaseSpeed = chaseSpeed;
+        this.tName = texture;
         
         this.sightShapeType = sightShapeType;
         if (this.sightShapeType === 'triangle') {
@@ -31,7 +32,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setSize(this.body.width * 0.5, this.body.height * 0.5);
         this.setScale(1.75);
 
-        this.play('daddy_walk');
+        this.play(texture+'_patrol');
     }
 
     createTriangle(vertexX, vertexY, sightDistance, sightRange) {
@@ -129,7 +130,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
         // when player is found
         if (this.isFound(player)) {
-            this.play('daddy_run');
+            this.play(this.tName + '_chase');
             this.moveState = 'chase';
             this.scene.graphics.clear();
             return;

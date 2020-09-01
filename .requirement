@@ -37,16 +37,12 @@ scenario
 backlog
 
 to do
+[ ] fix screen sizing issue
+    white space on both sides
 [ ] release(=deployment)!!!
 
 doing
-[ ] oekaki
-    [ ] ending picture
-    [ ] food
-    [ ] trap
-    [ ] family members
-    [ ] roach dead face
-    [ ] house
+[ ] impl oekaki
 
 done
 [v] create 1 stage
@@ -133,3 +129,11 @@ done
     [v] KOMUGIKO 0
     [v] KOMUGIKO not enough
     [v] KOMUGIKO perfect
+[v] oekaki // -: wrote, v: implemented(completed)
+    [v] ending picture
+    X food // use dev version
+    [v] trap
+    [v] family members
+    [v] roach dead face
+    [v] house
+    [v] intermediate map image
